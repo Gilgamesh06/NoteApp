@@ -1,6 +1,10 @@
 # Database
 
-* Aunque se va utilizar el ORM de SpringBoot JPA implementacion Hibernate. Es buena practica comprobar el correcto disñeo de la DB en base a los requerimientos.
+* Aunque se va utilizar el **ORM** de SpringBoot JPA implementacion `Hibernate`. Es buena practica comprobar el correcto disñeo de la DB en base a los requerimientos.
+
+    ## Diagrama 
+
+    ![NoteApp Database Diagram](/Diagramas/DataBase/note_app.png)
 
     ## PosgreSQL
 
@@ -45,3 +49,9 @@
             ```sql
                 psql -h localhost -p 5432 -U "solus" -d note_app;
             ```
+        ---
+
+        * [**`SQL CREATE TABLES`**](/DataBase/db.sql)  sql para crear las entidades en base al diagrama definido
+
+        * [**`SQL INSERT`**](/DataBase/data_test.sql) sql que tiene los datos de prueba para verificar el funcionamiento de la base de datos 
+
