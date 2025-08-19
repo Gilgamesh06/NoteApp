@@ -1,4 +1,4 @@
-package com.gilgamesh06.NoteApp.model.dto;
+package com.gilgamesh06.NoteApp.model.dto.login;
 
 
 import jakarta.validation.constraints.Email;
@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
 public class CreateUserDTO {
