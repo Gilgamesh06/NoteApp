@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que modela la entidad usuario en la base de datos
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -20,7 +23,7 @@ public class Usuario {
     @Column(length = 100, unique = true, nullable = false)
     private String nickname;
 
-    @Column(length = 150, nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)

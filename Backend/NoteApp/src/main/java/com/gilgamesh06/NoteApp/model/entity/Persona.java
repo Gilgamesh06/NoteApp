@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * Clase que modela la entidad persona en la base de datos
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

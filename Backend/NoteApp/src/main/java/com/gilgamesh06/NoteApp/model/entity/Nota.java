@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Clase que modela la entidad nota en la base de datos
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
