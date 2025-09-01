@@ -1,10 +1,7 @@
 package com.gilgamesh06.NoteApp.model.dto.login;
 
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 @Builder
-public class CreateUserDTO {
+public class RegisterDTO {
 
     @NotBlank(message = "El nombre no puede estar vacio.")
     private String nombre;
@@ -35,5 +32,6 @@ public class CreateUserDTO {
     private String nickname;
 
     @NotBlank(message = "La contraseña no puede estar vacia")
+    @Size(min = 8, message = "La contraseña debe tener minimo 8 caracteres")
     private String password;
 }

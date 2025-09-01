@@ -21,8 +21,6 @@ public class InfoUserDTO {
     @NotBlank(message = "El nombre no debe ser vacio.")
     private String nombre;
 
-    private String apellido;
-
     @NotBlank(message = "El correo no puede ser vacio.")
     @Email(message = "El correo debe tener formato valido.")
     private String correoElectronico;
