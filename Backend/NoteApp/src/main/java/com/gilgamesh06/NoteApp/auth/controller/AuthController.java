@@ -1,51 +1,51 @@
-package com.gilgamesh06.NoteApp.controller;
+package com.gilgamesh06.NoteApp.auth.controller;
 
 import com.gilgamesh06.NoteApp.auth.service.AuthService;
-import com.gilgamesh06.NoteApp.model.dto.login.RegisterDTO;
-import com.gilgamesh06.NoteApp.model.dto.login.InfoUserDTO;
-import com.gilgamesh06.NoteApp.model.dto.login.LoginDTO;
-import com.gilgamesh06.NoteApp.model.entity.Usuario;
+import com.gilgamesh06.NoteApp.auth.dto.login.RegisterDTO;
+import com.gilgamesh06.NoteApp.auth.dto.login.InfoUserDTO;
+import com.gilgamesh06.NoteApp.auth.dto.login.LoginDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
+/**
+ * Clase Controller que contiene los endpoints para {register, login}
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-
-    /**
-     * Atributa para crear una instancias de la clase PersonaService
-     * @param personaService
-     */
     private final AuthService authService;
 
     /**
-     * Constructor que asigna la instancia al atibuto PersonaService
-     * @param authService
+     * Constructor que instancia la dependencia necesaria
+     * @param authService servicio que contiene los metodos:
+     *                    1- para guardar una Persona y su Usuario
+     *                    2- Para logearse por medio de nickname y password
      */
     public AuthController(AuthService authService){
         this.authService = authService;
     }
 
     /**
-     * Enpoint url {/"create-user"} que permite guardar un persona y su respectivo dato de usuario
-     * @param register
-     * @return 201 y infoUserDTO o retorna un 404
+     * Enpoint: {/"create-user"} que permite guardar un objeto persona y su respectivo objeto usuario
+     * @param register DTO: contiene los atributos necesarios para crear un objeto de tipo Persona y Usuario
+     * @return retorna un StatusCode: 201 CREATED y un DTO: infoUserDTO
      */
     @PostMapping("/register")
-    public ResponseEntity<InfoUserDTO> createUser(@Valid RegisterDTO register){
+    public ResponseEntity<InfoUserDTO> createUser(@Valid @RequestBody RegisterDTO register){
         InfoUserDTO user = authService.registerUser(register);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
+    /**
+     * Enpoint: {"/login"} que permite logearse genera el token jwt de acceso a los endpoints privados
+     * @param login DTO: que contiene los atributos nickname y password
+     * @return retorna un StatusCode: 200 OK y el String que contiene el token jwt
+     */
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(LoginDTO login){
+    public ResponseEntity<String> loginUser(@Valid @RequestBody  LoginDTO login){
         String token = authService.loginUser(login);
         return new ResponseEntity<>(token,HttpStatus.OK);
     }
