@@ -8,6 +8,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO: para mostar la informacion de la clase Nota
+ * @see com.gilgamesh06.NoteApp.model.entity.Nota mirar estructura del objeto Nota
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
