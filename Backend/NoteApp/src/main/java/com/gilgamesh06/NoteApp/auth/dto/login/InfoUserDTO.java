@@ -1,4 +1,4 @@
-package com.gilgamesh06.NoteApp.model.dto.login;
+package com.gilgamesh06.NoteApp.auth.dto.login;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,6 +9,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO: usada para mostrar la informacion del usuario
+ * @see com.gilgamesh06.NoteApp.model.entity.Usuario mirar estructura de la clase Usuario
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
