@@ -1,7 +1,7 @@
 package com.gilgamesh06.NoteApp.service.impl;
 
-import com.gilgamesh06.NoteApp.model.dto.login.CreateUserDTO;
-import com.gilgamesh06.NoteApp.model.dto.login.InfoUserDTO;
+import com.gilgamesh06.NoteApp.auth.dto.login.RegisterDTO;
+import com.gilgamesh06.NoteApp.auth.dto.login.InfoUserDTO;
 import com.gilgamesh06.NoteApp.model.entity.Persona;
 import com.gilgamesh06.NoteApp.repository.PersonaRepository;
 import com.gilgamesh06.NoteApp.service.interfaces.GenericService;
@@ -10,63 +10,49 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * Clase PersonaService que implementa los metodos
- * Para Crear, Actualizar, Eliminar y Obtener una o varias Personas
+ * Clase para crear los servicios de la entidad persona {crear, eliminar, actualizar, obtener}
  */
-
 @Service
-public class PersonaService implements GenericService<CreateUserDTO, InfoUserDTO> {
+public class PersonaService implements GenericService<RegisterDTO, InfoUserDTO> {
 
-    /**
-     * Atributo para crear una instacia de la clase PersonaRepository
-     * @param personaRepository
-     */
+
     private final PersonaRepository personaRepository;
 
-    /**
-     * Atributo para crear una instacia de la clase UsuarioService
-     * @param usuarioService
-     */
-    private final UsuarioService usuarioService;
 
     /**
-     * Constructor que me asigna las instacia defininas en mis atributos
-     * @param  personaRepository
-     * @param usuarioService
+     * Constructor que me asigna la instancia necesaria
+     * @see org.springframework.data.jpa.repository.JpaRepository
+     * @param  personaRepository clase que extiende de JpaRepository permite crear metodos de este o usar psql
      */
-    public PersonaService(PersonaRepository personaRepository, UsuarioService usuarioService){
+    public PersonaService(PersonaRepository personaRepository){
         this.personaRepository = personaRepository;
-        this.usuarioService = usuarioService;
     }
 
 
     /**
-     * @method CreateObjetPersona
-     * @param {CreateUsrDTO} (Dto que contiene los datos para crear el objeto persona y el objeto usuario)
-     * @return {Persona} (Retorna un objeto de tipo persona
+     * Metodo para crear un objeto de la clase Persona por medio del DTO: RegisterDTO
+     * @see Persona mirar estructura de la clase persona
+     * @param register DTO: que contiene los atributos para crear un objeto de tipo Persona
+     * @return retorna un objeto de la clase Persona con la inforacion del DTO: RegisterDTO
      */
-    public Persona createObjectPersona(CreateUserDTO createUserDTO){
+    public Persona createObjectPersona(RegisterDTO register){
         return Persona.builder()
-                .nombre(createUserDTO.getNombre())
-                .apellido(createUserDTO.getApellido())
-                .correoElectronico(createUserDTO.getCorreoElectronico())
-                .fechaNacimiento(createUserDTO.getFechaNacimiento())
+                .nombre(register.getNombre())
+                .apellido(register.getApellido())
+                .correoElectronico(register.getCorreoElectronico())
+                .fechaNacimiento(register.getFechaNacimiento())
                 .build();
     }
 
     /**
-     * Metodo para guardar un objeto de tipo persona que a su vez llama al metdo save que guarda a un usuario
-     * todo a traves de un dto de entrada de tipo CreateUser DTO
-     * @param createUserDTO
-     * @return infoUserDTO
+     * Metodo para almacenar el objeto de tipo persona a partir del DTO: RegisterDTO
+     * @see RegisterDTO mirar estructura del DTO register
+     * @param register DTO: que contiene los atributos necesarios para crear un objeto de tipo Persona
+     * @return retorna un objeto de tipo Persona
      */
-    public Optional<InfoUserDTO> save(CreateUserDTO createUserDTO){
-        Persona persona = createObjectPersona(createUserDTO);
-        Optional<Persona> personaOpt = personaRepository.save(persona);
-        if(personaOpt.isPresent()){
-            return usuarioService.save(createUserDTO,personaOpt.get());
-        }
-        return Optional.empty();
+    public Persona save(RegisterDTO register){
+        Persona persona = createObjectPersona(register);
+        return personaRepository.save(persona);
     }
 
     @Override
@@ -75,7 +61,7 @@ public class PersonaService implements GenericService<CreateUserDTO, InfoUserDTO
     }
 
     @Override
-    public Optional<InfoUserDTO> update(Long id, CreateUserDTO dto) {
+    public Optional<InfoUserDTO> update(Long id, RegisterDTO dto) {
         return Optional.empty();
     }
 }
