@@ -5,14 +5,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Interfaz que define los metodos: {findAll, findById}
+ * @param <Exit> define que objeto debe retornar el metodo
+ */
 @Service
 public interface SearchService<Exit> {
 
     Page<Exit> findAll(Long id, Long size);
-
-    Page<Exit> findAllByTitle(String title);
-
-    Page<Exit> findAllByState(Boolean state);
 
     Optional<Exit> findById(Long id);
 
