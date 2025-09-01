@@ -7,13 +7,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Clase de para crear los metodos que extienden de JpaRepository o psql de la clase Usuario
+ * @see JpaRepository mirar funcionamiento
+ */
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 
     @Override
     Optional<Usuario> findById(Long aLong);
 
-    Optional<Usuario> save(Usuario usuario);
+    Optional<Usuario> findByNickname(String nickname);
 
     Optional<Usuario> findByPersona(Persona persona);
 

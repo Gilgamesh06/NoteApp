@@ -11,7 +11,6 @@ public interface NotaRepository extends JpaRepository<Nota,Long> {
 
     Optional<Nota> findById(Long id);
     
-    Optional<Nota> save(Nota nota);
 
     void deleteById(Long id);
 }
