@@ -4,13 +4,16 @@ import com.gilgamesh06.NoteApp.model.dto.note.CreateNoteDTO;
 import com.gilgamesh06.NoteApp.model.dto.note.InfoNoteDTO;
 import com.gilgamesh06.NoteApp.service.impl.NotaService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * Clase Controller que contiene los Endpoints {create,id}
  */
+@Validated
 @RestController
 @RequestMapping("/note_app/v1/note")
 public class NotaController {
@@ -46,5 +49,41 @@ public class NotaController {
     public ResponseEntity<InfoNoteDTO> getNotaById(@PathVariable Long id) {
         InfoNoteDTO nota = notaService.getNotaById(id);
         return new ResponseEntity<>(nota, HttpStatus.OK);
+    }
+
+    /**
+     * Endpoint: {/"all"} obtiene lista de notas paginadas
+     * @param page numero de pagina
+     * @param size tamaño de la pagina
+     * @param orderBy orden true: ascending, flase: desending
+     * @return Page que cotiene la lista de InfoNoteDTO
+     */
+    @GetMapping("/all")
+    public ResponseEntity<Page<InfoNoteDTO>> getAllNota(
+            @RequestParam Integer page,
+            @RequestParam Integer size,
+            @RequestParam(defaultValue = "true") Boolean orderBy){
+
+        Page<InfoNoteDTO> pageNota = notaService.getAllNota(page,size,orderBy);
+        return new ResponseEntity<>(pageNota, HttpStatus.OK);
+    }
+
+    /**
+     * Endpoint: {"/all/{status}"} obtiene lista paginada de notas filtradas por status
+     * @param status estado de la nota: activa o inactiva type Boolean
+     * @param page numero de pagina
+     * @param size tamaño de la pagina
+     * @param orderBy orden true: ascending, flase: desending
+     * @return Page que contiene la lista de InfoNoteDTO
+     */
+    @GetMapping("/all/{status}")
+    public ResponseEntity<Page<InfoNoteDTO>> getNotaByEstado(
+            @PathVariable Boolean status,
+            @RequestParam Integer page,
+            @RequestParam Integer size,
+            @RequestParam(defaultValue = "true") Boolean orderBy){
+
+        Page<InfoNoteDTO> pageNota = notaService.getAllNoteByEstado(page,size,orderBy,status);
+        return new ResponseEntity<>(pageNota, HttpStatus.OK);
     }
 }
