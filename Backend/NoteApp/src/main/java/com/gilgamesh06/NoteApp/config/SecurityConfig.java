@@ -28,7 +28,7 @@ public class SecurityConfig {
     /**
      * Consturctor que me instacias las dependencias necesarias
      * @param userDetailsService  clase que instancia de la interfaz UserDetailService que contiene el metodo que retorna un UserDetails
-     * @param passwordEncoder metodo definido como un bean que  encripta y desecritas la contraseña
+     * @param passwordEncoder metodo definido como un bean que encripta y desecritas la contraseña
      * @param jwtAuthenticationFilter Clase que contiene el metodo que verifica si la ruta es publica o priivada y si es privada verifica
      *                                que el usuario este en el contexto de autenticacion de spring si no lo guarda en este
      */
@@ -47,13 +47,10 @@ public class SecurityConfig {
      */
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
-
-    // AuthenticationManager centralizado
 
     /**
      * Metodo que re
@@ -84,7 +81,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                // Pre-autentica con el filtro defino jwtAuthenticationFitler antes que lo haga el filtro por defecto de formulario
+                // Pre_autentica con el filtro defino jwtAuthenticationFitler antes que lo haga el filtro por defecto de formulario
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
