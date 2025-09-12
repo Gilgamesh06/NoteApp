@@ -31,7 +31,7 @@ public class RegisterDTO {
     private String correoElectronico;
 
     @NotNull(message = "La fecha de nacimiento no puede ser nula.")
-    @Past(message = "La fecha debe ser anterio a la fecha actual")
+    @Past(message = "La fecha debe ser anterior a la fecha actual")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
 
