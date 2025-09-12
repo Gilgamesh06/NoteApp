@@ -1,10 +1,15 @@
 package com.gilgamesh06.NoteApp.service.impl;
 
+import com.gilgamesh06.NoteApp.exception.NotaNotFoundException;
 import com.gilgamesh06.NoteApp.model.dto.note.CreateNoteDTO;
 import com.gilgamesh06.NoteApp.model.dto.note.InfoNoteDTO;
 import com.gilgamesh06.NoteApp.model.entity.Nota;
 import com.gilgamesh06.NoteApp.model.entity.Usuario;
 import com.gilgamesh06.NoteApp.repository.NotaRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -12,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * Clase para crear los servicios de la entidad nota (Crear, eliminar, actualizar, obtener}
+ * Clase para crear los servicios de la entidad nota: (Crear, eliminar, actualizar, obtener}
  */
 @Service
 public class NotaService {
@@ -92,8 +97,66 @@ public class NotaService {
     public InfoNoteDTO getNotaById(Long id){
         Optional<Nota> notaOpt = notaRepository.findById(id);
         if(notaOpt.isEmpty()){
-            throw new RuntimeException("Nota no encontrada");
+            throw new NotaNotFoundException("Nota no encontrada");
         }
         return createObjectInfoNote(notaOpt.get());
     }
+
+    /**
+     * Retorna El objeto PageRequest con los parametros ingresados
+     * @param page numero de pagina
+     * @param size tamaño de la pagina
+     * @param orderBy orden true: ascending, flase: desending
+     * @return Pageable
+     */
+    protected Pageable getPageable(int page, int size, Boolean orderBy){
+        if(orderBy){
+            return PageRequest.of(page,size,Sort.by("titulo").ascending());
+        }
+        else{
+            return PageRequest.of(page,size,Sort.by("titulo").descending());
+        }
+    }
+
+    /**
+     * Obtiene lista paginada de notas
+     * @param page numero de la  pagina
+     * @param size tamaño de la pagina
+     * @param orderBy orden true: ascending, flase: desending
+     * @return lista pagian de InfoNoteDTO
+     */
+    public Page<InfoNoteDTO> getAllNota(Integer page, Integer size, Boolean orderBy){
+
+        Pageable pageable = getPageable(page,size,orderBy);
+
+        Page<Nota> pageNota = notaRepository.findAll(pageable);
+
+        return pageNota.map(nota -> InfoNoteDTO.builder()
+                .id(nota.getId())
+                .titulo(nota.getTitulo())
+                .descripcion(nota.getDescripcion())
+                .build());
+    }
+
+    /**
+     * Metodo que retorna lista paginada de notas por estado
+     * @param page numero de la pagina
+     * @param size tamaño de la pagina
+     * @param orderBy orden true: ascending, flase: desending
+     * @param estado parametro que deternima si una nota esta activa o no boolean
+     * @return Page: lista paginada de InfoNoteDTO filtradas por estado
+     */
+    public Page<InfoNoteDTO> getAllNoteByEstado(Integer page, Integer size, Boolean orderBy, boolean estado){
+
+        Pageable pageable = getPageable(page,size,orderBy);
+
+        Page<Nota> pageNota = notaRepository.findByEstado(estado, pageable);
+
+        return pageNota.map(nota -> InfoNoteDTO.builder()
+                .id(nota.getId())
+                .titulo(nota.getTitulo())
+                .descripcion(nota.getDescripcion())
+                .build());
+    }
+
 }
