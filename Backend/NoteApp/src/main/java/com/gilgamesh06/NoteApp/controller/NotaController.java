@@ -2,6 +2,7 @@ package com.gilgamesh06.NoteApp.controller;
 
 import com.gilgamesh06.NoteApp.model.dto.note.CreateNoteDTO;
 import com.gilgamesh06.NoteApp.model.dto.note.InfoNoteDTO;
+import com.gilgamesh06.NoteApp.model.dto.note.UpdateNoteDTO;
 import com.gilgamesh06.NoteApp.service.impl.NotaService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,39 @@ public class NotaController {
         return new ResponseEntity<>(nota, HttpStatus.CREATED);
     }
 
+    /**
+     * Endpoint: {"/update"} actualiza una nota a partir del DTO UpdateNoteDTO
+     * @param updateNote DTO: que contiene los atributos necesarios para crear un objeto de la clase Nota
+     * @return retorna un StatusCode: 201 CREATED y un DTO InfoUserDTO
+     */
+    @PostMapping("/update")
+    public ResponseEntity<InfoNoteDTO> updateNote(@RequestBody UpdateNoteDTO updateNote){
+        InfoNoteDTO nota = notaService.update(updateNote);
+        return new ResponseEntity<>(nota,HttpStatus.CREATED);
+    }
+
+    /**
+     * Endpoint: {"/status-changed/{id}"} cambia el estado de una nota
+     * @param id Identificador unico de cada nota
+     * @return String que informa que estado tiene la nota ahora
+     */
+    @PostMapping("/status-changed/{id}")
+    public ResponseEntity<String> statusChangedNote(@PathVariable Long id){
+        String message = notaService.updateStatus(id);
+        return new ResponseEntity<>(message,HttpStatus.OK);
+    }
+
+    /**
+     * Endpoint: {"/delete/{id}"} elimina una nota a partir del Id
+     * @param id Identificador unico de cada nota
+     * @return String : Se elimino la nota + Id
+     */
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteNote(@PathVariable Long id){
+        notaService.delete(id);
+        return new ResponseEntity<>("Se elimino la nota: "+ id,HttpStatus.OK);
+    }
+
 
     /**
      * Endpoint: {"/{id}"} obtiene la nota que tiene el mismo id
@@ -69,20 +103,37 @@ public class NotaController {
     }
 
     /**
-     * Endpoint: {"/all/{status}"} obtiene lista paginada de notas filtradas por status
-     * @param status estado de la nota: activa o inactiva type Boolean
+     * Endpoint: {"/all/active"} obtiene lista paginada de notas activas
      * @param page numero de pagina
      * @param size tamaño de la pagina
      * @param orderBy orden true: ascending, flase: desending
      * @return Page que contiene la lista de InfoNoteDTO
      */
-    @GetMapping("/all/{status}")
-    public ResponseEntity<Page<InfoNoteDTO>> getNotaByEstado(
-            @PathVariable Boolean status,
+    @GetMapping("/all/active")
+    public ResponseEntity<Page<InfoNoteDTO>> getNotaByActive(
             @RequestParam Integer page,
             @RequestParam Integer size,
             @RequestParam(defaultValue = "true") Boolean orderBy){
+        // Trae notas activas
+        Boolean status = Boolean.TRUE;
+        Page<InfoNoteDTO> pageNota = notaService.getAllNoteByEstado(page,size,orderBy,status);
+        return new ResponseEntity<>(pageNota, HttpStatus.OK);
+    }
 
+    /**
+     * Endpoint: {"/all/archive"} obtiene lista paginada de notas archivadas
+     * @param page numero de pagina
+     * @param size tamaño de la pagina
+     * @param orderBy orden true: ascending, flase: desending
+     * @return Page que contiene la lista de InfoNoteDTO
+     */
+    @GetMapping("/all/archive")
+    public ResponseEntity<Page<InfoNoteDTO>> getNotaByArchive(
+            @RequestParam Integer page,
+            @RequestParam Integer size,
+            @RequestParam(defaultValue = "true") Boolean orderBy){
+        // Trae notas activas
+        Boolean status = Boolean.FALSE;
         Page<InfoNoteDTO> pageNota = notaService.getAllNoteByEstado(page,size,orderBy,status);
         return new ResponseEntity<>(pageNota, HttpStatus.OK);
     }
