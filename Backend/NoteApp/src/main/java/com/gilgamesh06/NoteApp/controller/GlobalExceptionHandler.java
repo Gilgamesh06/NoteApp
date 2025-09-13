@@ -83,7 +83,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * Metodo que maneja la exepcion que se genera al no encotrar el usuario
+     * Metodo que maneja la excepciones que se genera al no encotrar el usuario
      * @param ex UsernameNotFoundException
      * @return retorna un exceptionDTO
      */
@@ -95,6 +95,22 @@ public class GlobalExceptionHandler {
                 .date(LocalDateTime.now())
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(exceptionDTO);
+    }
+
+    /**
+     * Metodo que maneja excepciones que se generan al igresar valores que no cumplen las restriciones
+     * @param ex IllegalArgumentHandler
+     * @return retorna un exceptionDTO
+     */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ExceptionDTO> IllegalArgumentHandler(IllegalArgumentException ex){
+        ExceptionDTO exceptionDTO = ExceptionDTO.builder()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .message(ex.getMessage())
+                .date(LocalDateTime.now())
+                .build();
+        return ResponseEntity.badRequest()
                 .body(exceptionDTO);
     }
 }
