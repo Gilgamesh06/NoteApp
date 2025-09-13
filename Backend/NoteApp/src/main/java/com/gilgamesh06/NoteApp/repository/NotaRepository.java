@@ -1,6 +1,7 @@
 package com.gilgamesh06.NoteApp.repository;
 
 import com.gilgamesh06.NoteApp.model.entity.Nota;
+import com.gilgamesh06.NoteApp.model.entity.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,11 +12,12 @@ import java.util.Optional;
 @Repository
 public interface NotaRepository extends JpaRepository<Nota,Long> {
 
-    Optional<Nota> findById(Long id);
+    Optional<Nota> findByUsuarioAndId(Usuario usuario, Long id);
 
-    Page<Nota> findAll(Pageable pageable);
+    Optional<Nota> findByUsuarioAndTitulo(Usuario usuario, String titulo);
+    Page<Nota> findByUsuario(Usuario usuario, Pageable pageable);
 
-    Page<Nota> findByEstado(boolean estado, Pageable pageable);
+    Page<Nota> findByUsuarioAndEstado(Usuario usuario, boolean estado, Pageable pageable);
 
-    void deleteById(Long id);
+    void deleteByUsuarioAndId(Usuario usuario, Long id);
 }
