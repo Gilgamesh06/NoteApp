@@ -3,6 +3,7 @@ package com.gilgamesh06.NoteApp.service.impl;
 import com.gilgamesh06.NoteApp.exception.NotaNotFoundException;
 import com.gilgamesh06.NoteApp.model.dto.note.CreateNoteDTO;
 import com.gilgamesh06.NoteApp.model.dto.note.InfoNoteDTO;
+import com.gilgamesh06.NoteApp.model.dto.note.UpdateNoteDTO;
 import com.gilgamesh06.NoteApp.model.entity.Nota;
 import com.gilgamesh06.NoteApp.model.entity.Usuario;
 import com.gilgamesh06.NoteApp.repository.NotaRepository;
@@ -36,6 +37,45 @@ public class NotaService {
         this.notaRepository = notaRepository;
     }
 
+    // Metodo para validar Id
+    protected void validId(Long id){
+        if(id == null){
+           throw new IllegalArgumentException("El Id No puede ser nulo");
+        } else if (id <= 0) {
+            throw new IllegalArgumentException("El Id no puede ser menor o igual a cero");
+        }
+    }
+
+    // Metodos para obtener el usuario
+
+    /**
+     * Metodo que obtiene el nickname del usuario que esta logueado
+     * @return String nickname
+     */
+    private String getNicknameUserLogin(){
+        // 1. Obtener autenticación del contexto
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // 2. Obtener el nickname (username del UserDetails)
+        return authentication.getName();
+    }
+
+    /**
+     * Metodo que retorna el objeto Usuario que esta logueado
+     * @return Usuario
+     */
+    protected Usuario getUserAuthenticated(){
+
+        String nickname = getNicknameUserLogin();
+
+        Optional<Usuario> usuarioOpt = usuarioService.getUserByNickname(nickname);
+        if(usuarioOpt.isEmpty()){
+            throw new RuntimeException("Usuario no encontrado");
+        }
+        return usuarioOpt.get();
+    }
+
+    // Metodos para crear Objetos
 
     /**
      * Crea un objeto de la clase Nota a partir de un dto para poder almacenarlo
@@ -66,6 +106,41 @@ public class NotaService {
                 .build();
     }
 
+    // Metodos para obtener una Nota
+
+    /**
+     * Metodo que busca una nota a traves del Id
+     * @param id identificador de la nota
+     * @return Nota
+     */
+    protected Nota getNota(Long id){
+        // validar id
+        validId(id);
+
+        // obtener usuario
+        Usuario usuario = getUserAuthenticated();
+
+        Optional<Nota> notaOpt = notaRepository.findByUsuarioAndId(usuario,id);
+
+        if(notaOpt.isEmpty()){
+            throw new NotaNotFoundException("Nota no encontrada");
+        }
+        return notaOpt.get();
+    }
+
+    /**
+     * Metodo que retorna un Optianal Nota buscando por el titulo
+     * @param title parametro que contiene el titulo de la nota
+     * @return Un Optional Nota
+     */
+    protected Optional<Nota> getNoteByTitle( String title){
+        Usuario usuario = getUserAuthenticated();
+        return notaRepository.findByUsuarioAndTitulo(usuario,title);
+
+    }
+
+    // Metodo para guardar una nota
+
     /**
      * Metodo para guardar un objeto de tipo nota a partir del DTO CreateNote y el Usuario Logeado
      * @see Authentication mirar esquema de autenticacion que contiene el nickname del usuario
@@ -74,33 +149,106 @@ public class NotaService {
      * @throws RuntimeException retorna el mensaje: {Usuario no encontrado}
      */
     public InfoNoteDTO save(CreateNoteDTO createNota){
-        // 1. Obtener autenticación del contexto
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // 2. Obtener el nickname (username del UserDetails)
-        String nickname = authentication.getName();
+        // Verifica si no existe una nota con el mismo titulo
+        Optional<Nota> notaOpt = getNoteByTitle(createNota.getTitulo());
 
-        Optional<Usuario> usuarioOpt = usuarioService.getUserByNickname(nickname);
-        if(usuarioOpt.isEmpty()){
-            throw new RuntimeException("Usuario no encontrado");
+        if(notaOpt.isEmpty()){
+
+            // obtengo el usuario que esta logeado
+            Usuario usuario = getUserAuthenticated();
+
+            // creo la nota y la vinculo al usuario
+            Nota nota = createObjetNota(createNota,usuario);
+
+            // retorno el DTO InfoNoteDTO
+            return createObjectInfoNote(notaRepository.save(nota));
+        }else{
+            throw new IllegalArgumentException("Ya existe una nota con ese titulo.");
         }
-        Nota nota = createObjetNota(createNota, usuarioOpt.get());
-        return createObjectInfoNote(notaRepository.save(nota));
+
+
     }
 
+    // Metodo para actualizar una nota
+
     /**
-     * Obtiene una nota a partir del Id y la trasforma en un DTO InfoNoteDTO
-     * @param id Long que contiene el identificador del objeto usuario
-     * @return InfoNoteDTO si la nota existe si no
-     * @throws RuntimeException retorna el mensaje: {Nota no encontrada}
+     * Metodo para actualizar una nota
+     * @param update DTO que contiene los campos titulo y descripcion
+     * @return un DTO InfoNoteDTO con la nueva nota
      */
-    public InfoNoteDTO getNotaById(Long id){
+    public InfoNoteDTO update(UpdateNoteDTO update){
+
+        String title = update.getTitulo();
+        String description = update.getDescripcion();
+
+        // Obtenemos la nota
+        Nota nota = getNota(update.getId());
+
+        // La descripcion no es nula
+        if(!description.isEmpty()){
+            // guarda la nueva descripcion
+            nota.setDescripcion(description);
+        }
+        // Si el título no es nulo y no es vacio
+        if(!title.isBlank()){
+
+            // Verifica que el titulo no tenga mas de 100 caracteres
+            if(title.length() > 100){
+                throw new IllegalArgumentException("El titulo no puede tener mas de 100 caracteres");
+            }
+
+            // Busca si ya existe una nota con ese titulo
+            Optional<Nota> notaOpt = getNoteByTitle(title);
+
+            // True si no existe la nota
+            if(notaOpt.isEmpty()){
+                // Actualiza el título
+                nota.setTitulo(title);
+            }else{
+                throw new IllegalArgumentException("Ya existe una nota con ese titulo");
+            }
+        }
+        Nota notaSave = notaRepository.save(nota);
+        return createObjectInfoNote(notaSave);
+    }
+
+    // Metodo para actualizar estado
+
+    /**
+     * Metodo para activar o archivar una nota
+     * @param id identifacador de la nota
+     * @return String
+     */
+    public String updateStatus(Long id){
         Optional<Nota> notaOpt = notaRepository.findById(id);
         if(notaOpt.isEmpty()){
             throw new NotaNotFoundException("Nota no encontrada");
         }
-        return createObjectInfoNote(notaOpt.get());
+        boolean estado = !notaOpt.get().getEstado();
+        notaOpt.get().setEstado(estado);
+        return estado ? "La nota esta Activa" : "La nota esta Archivada";
+
     }
+
+    // Metodo de eliminacion
+
+    /**
+     * Metodo para eliminar una nota
+     * @param id identificador de la nota
+     */
+    public void delete(Long id){
+
+        // validar id
+        validId(id);
+
+        // Se pasa el usuario para evitar que se elimine notas que no son del Usuario
+        Usuario usuario = getUserAuthenticated();
+
+        notaRepository.deleteByUsuarioAndId(usuario,id);
+    }
+
+    // Metodos de busqueda
 
     /**
      * Retorna El objeto PageRequest con los parametros ingresados
@@ -119,6 +267,19 @@ public class NotaService {
     }
 
     /**
+     * Obtiene una nota a partir del Id y la trasforma en un DTO InfoNoteDTO
+     * @param id Long que contiene el identificador del objeto usuario
+     * @return InfoNoteDTO si la nota existe si no
+     * @throws RuntimeException retorna el mensaje: {Nota no encontrada}
+     */
+    public InfoNoteDTO getNotaById(Long id){
+
+        Nota nota = getNota(id);
+        return createObjectInfoNote(nota);
+    }
+
+
+    /**
      * Obtiene lista paginada de notas
      * @param page numero de la  pagina
      * @param size tamaño de la pagina
@@ -127,9 +288,11 @@ public class NotaService {
      */
     public Page<InfoNoteDTO> getAllNota(Integer page, Integer size, Boolean orderBy){
 
+        Usuario usuario = getUserAuthenticated();
+
         Pageable pageable = getPageable(page,size,orderBy);
 
-        Page<Nota> pageNota = notaRepository.findAll(pageable);
+        Page<Nota> pageNota = notaRepository.findByUsuario(usuario,pageable);
 
         return pageNota.map(nota -> InfoNoteDTO.builder()
                 .id(nota.getId())
@@ -148,9 +311,11 @@ public class NotaService {
      */
     public Page<InfoNoteDTO> getAllNoteByEstado(Integer page, Integer size, Boolean orderBy, boolean estado){
 
+        Usuario usuario = getUserAuthenticated();
+
         Pageable pageable = getPageable(page,size,orderBy);
 
-        Page<Nota> pageNota = notaRepository.findByEstado(estado, pageable);
+        Page<Nota> pageNota = notaRepository.findByUsuarioAndEstado(usuario,estado, pageable);
 
         return pageNota.map(nota -> InfoNoteDTO.builder()
                 .id(nota.getId())
