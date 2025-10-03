@@ -29,7 +29,7 @@ public class AuthController {
     }
 
     /**
-     * Enpoint: {/"create-user"} que permite guardar un objeto persona y su respectivo objeto usuario
+     * Enpoint: {/"register"} que permite guardar un objeto persona y su respectivo objeto usuario
      * @param register DTO: contiene los atributos necesarios para crear un objeto de tipo Persona y Usuario
      * @return retorna un StatusCode: 201 CREATED y un DTO: infoUserDTO
      */
