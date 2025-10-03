@@ -1,0 +1,47 @@
+services:
+
+  backend:
+    build:
+      context: ..
+      dockerfile: Container/Backend/Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/note_app
+      - SPRING_DATASOURCE_USERNAME=Solus
+      - SPRING_DATASOURCE_PASSWORD=123456
+    depends_on:
+      - db
+    networks:
+      - note_network
+
+  frontend:
+    build:
+      context:  ..
+      dockerfile: Container/Frontend/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - note_network
+
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=note_app
+      - POSTGRES_USER=Solus
+      - POSTGRES_PASSWORD=123456
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data-note-app:/var/lib/postgresql/data
+    networks:
+      - note_network
+
+volumes:
+  postgres-data-note-app:
+
+networks:
+  note_network:
+    driver: bridge
