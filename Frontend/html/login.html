@@ -8,7 +8,11 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 </head>
 <body>
-    <form id="login" action="/enviar" method="post">
+
+    <!-- Incluyendo la barra superior -->
+    <div id="header"></div>
+    
+    <form id="login">
         <label for="nickname">Nickname:</label>
         <br>
         <input type="text" id="nickname" name="nickname" required>
@@ -20,5 +24,6 @@
         <input type="submit" value="Iniciar Sesión">
     </form>
 </body>
-    <script src='main.js'></script>
+    <script src="/js/main/main.js"></script>
+    <script type="module" src='/js/service/auth/login.js'></script>
 </html>
