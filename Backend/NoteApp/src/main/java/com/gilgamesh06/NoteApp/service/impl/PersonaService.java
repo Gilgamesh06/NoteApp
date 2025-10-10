@@ -5,6 +5,7 @@ import com.gilgamesh06.NoteApp.auth.dto.login.InfoUserDTO;
 import com.gilgamesh06.NoteApp.model.entity.Persona;
 import com.gilgamesh06.NoteApp.repository.PersonaRepository;
 import com.gilgamesh06.NoteApp.service.interfaces.GenericService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -50,6 +51,7 @@ public class PersonaService implements GenericService<RegisterDTO, InfoUserDTO> 
      * @param register DTO: que contiene los atributos necesarios para crear un objeto de tipo Persona
      * @return retorna un objeto de tipo Persona
      */
+    @Transactional
     public Persona save(RegisterDTO register){
         Persona persona = createObjectPersona(register);
         return personaRepository.save(persona);

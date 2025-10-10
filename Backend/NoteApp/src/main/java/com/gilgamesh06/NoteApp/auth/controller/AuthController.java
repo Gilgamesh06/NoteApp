@@ -47,7 +47,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@Valid @RequestBody  LoginDTO login){
         String token = authService.loginUser(login);
-        return new ResponseEntity<>(token,HttpStatus.OK);
+        String jsonResponse = "{\"token\":\"" + token + "\"}";
+        return new ResponseEntity<>(jsonResponse,HttpStatus.OK);
     }
 
 }

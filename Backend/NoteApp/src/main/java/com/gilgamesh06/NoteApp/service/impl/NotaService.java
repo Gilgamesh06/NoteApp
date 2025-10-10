@@ -7,6 +7,7 @@ import com.gilgamesh06.NoteApp.model.dto.note.UpdateNoteDTO;
 import com.gilgamesh06.NoteApp.model.entity.Nota;
 import com.gilgamesh06.NoteApp.model.entity.Usuario;
 import com.gilgamesh06.NoteApp.repository.NotaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -148,6 +149,7 @@ public class NotaService {
      * @return retorna un DTO la clase InfoNoteDTO si se almacena la nota correctamente
      * @throws RuntimeException retorna el mensaje: {Usuario no encontrado}
      */
+    @Transactional
     public InfoNoteDTO save(CreateNoteDTO createNota){
 
         // Verifica si no existe una nota con el mismo titulo
@@ -177,6 +179,7 @@ public class NotaService {
      * @param update DTO que contiene los campos titulo y descripcion
      * @return un DTO InfoNoteDTO con la nueva nota
      */
+    @Transactional
     public InfoNoteDTO update(UpdateNoteDTO update){
 
         String title = update.getTitulo();

@@ -7,6 +7,7 @@ import com.gilgamesh06.NoteApp.model.entity.Persona;
 import com.gilgamesh06.NoteApp.model.entity.Usuario;
 import com.gilgamesh06.NoteApp.repository.UsuarioRepository;
 import com.gilgamesh06.NoteApp.service.interfaces.GenericService;
+import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -90,6 +91,7 @@ public class UsuarioService implements GenericService<RegisterDTO, InfoUserDTO> 
      * @param persona  objeto persona que vincula el usuario con la persona
      * @return retorna un objeto de tipo usuario que fue almacenado
      */
+    @Transactional
     public Usuario save(RegisterDTO register, Persona persona){
         Usuario usuario = createObjectUsuario(register, persona);
         return usuarioRepository.save(usuario);
