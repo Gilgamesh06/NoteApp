@@ -8,7 +8,11 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 </head>
 <body>
-    <form id="register" action="/enviar" method="post">
+
+    <!-- Incluyendo la barra superior -->
+    <div id="header"></div>
+
+    <form id="register">
         <label for="nombre">Nombre:</label>
         <br>
         <input type="text" id="nombre" name="nombre" required>
@@ -36,5 +40,7 @@
         <input type="submit" value="Registrase">
     </form>
 </body>
-    <script src='main.js'></script>
+    <script src='/js/main/main.js'></script>
+    <script type="module" src='/js/service/auth/register.js'></script>
+
 </html>
