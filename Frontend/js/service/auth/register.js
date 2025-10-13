@@ -1,6 +1,6 @@
 import { RegisterDTO } from "../../dto/registerDTO.js";
-import { sendAuth } from "../../controller/authController.js"; 
-import { URL } from "../../const/const.js";
+import { sendAuth } from "../../controller/querys.js"; 
+import { URL_AUTH } from "../../data/const.js";
 import { validType , validPassword, validEmail } from "../../valid/validRegister.js";
 
 // Manejador del formulario
@@ -39,7 +39,7 @@ fromResgister.addEventListener('submit', async function (event){
 
     try {
         // Funcion para enviar datos al backend
-        const result = await sendAuth(user, `${URL}/register`);
+        const result = await sendAuth(user, `${URL_AUTH}/register`);
         console.log("Usuario registrado: ",result);
     }catch(error){
         console.log("Error al registrar: ", error);

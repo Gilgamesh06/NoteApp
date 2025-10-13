@@ -1,6 +1,7 @@
 import { UserDTO } from "../../dto/userDTO.js";
-import { sendAuth } from "../../controller/authController.js"; 
-import { URL } from "../../const/const.js";
+import { sendAuth } from "../../controller/querys.js"; 
+import { URL_AUTH } from "../../data/const.js";
+import { saveToken } from "../../data/saveToken.js";
 import { validType , validPassword } from "../../valid/validRegister.js";
 
 // Manejador del login
@@ -28,8 +29,12 @@ fromLogin.addEventListener('submit', async function (event){
 
     try{
         // Funcion para enviar datos al backend
-        const result = await sendAuth(user, `${URL}/login`);
-        console.log("Usuario logeado:", result); 
+        const data = await sendAuth(user, `${URL_AUTH}/login`);
+        
+        // Guarda el token
+        saveToken(data.token);
+
+        console.log(data);
     }catch(error){
         console.log("Error al logearse: ", error);
     }
