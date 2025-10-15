@@ -1,6 +1,6 @@
 import { getHTML } from "../controller/querys.js";
 
-export async function cargarHTML(elementSet, elementGet, URL) {
+export async function cargarHTML(elementSet, elementGet, URL, drop = true) {
     
     const parser = new DOMParser(); // Crea un parse de DOM
     try{
@@ -8,8 +8,10 @@ export async function cargarHTML(elementSet, elementGet, URL) {
         const doc = parser.parseFromString(html, 'text/html'); // Convierte el texto HTML en un documento
         const insertElement = doc.getElementById(elementGet); // Obtiene el elemento a insertar
         if (insertElement){
-            // Limpiar el contenedor antes de agregar nuevas notas
-            elementSet.innerHTML = "";
+            if(drop){
+                // Limpiar el contenedor antes de agregar nuevas notas
+                elementSet.innerHTML = "";
+            }
             elementSet.appendChild(insertElement);
         }
         else{
@@ -18,4 +20,9 @@ export async function cargarHTML(elementSet, elementGet, URL) {
     }catch(err){
         console.log('Hubo un problema con la peticion Fetch:', err);
     }
+}
+
+
+export function handleClickCargarHTML(container, elementGet, URL, drop) {
+  return cargarHTML(container, elementGet, URL, drop);
 }
