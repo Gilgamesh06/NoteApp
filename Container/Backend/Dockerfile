@@ -6,10 +6,8 @@ WORKDIR /app
 
 COPY Backend/NoteApp/  ./
 
-
 RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
-
 
 # Stage 2: Runtime
 
