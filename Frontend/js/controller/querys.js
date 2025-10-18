@@ -7,7 +7,32 @@ export async function getElements(token, URL){
             'Authorization': `Bearer ${token}` 
         }
     });
-    if (!res.ok) throw new Error(`HTTP: ${res.status}`);
+    if (!res.ok){
+        if (res.status === 401) {
+        return false;
+        }
+     throw new Error(`HTTP: ${res.status}`);
+    }
+
+    return await res.json();
+}
+
+export async function sendNote(token ,body, URL){
+    const res = await fetch( `${URL}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, 
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
+    if (!res.ok){
+        if (res.status === 401) {
+        return false;
+        }
+     throw new Error(`HTTP: ${res.status}`);
+    }
 
     return await res.json();
 }
@@ -26,20 +51,6 @@ export async function sendAuth(body, URL){
     return await res.json();
 }
 
-export async function sendNote(token ,body, URL){
-    const res = await fetch( `${URL}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, 
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(body)
-    });
-    if (!res.ok) throw new Error(`HTTP: ${res.status}`);
-    
-    return await res.json();
-}
 
 export async function getHTML(URL){
     const res = await fetch(`${URL}`);
@@ -49,3 +60,4 @@ export async function getHTML(URL){
     return res.text(); // Convierte la respuesta en texto
 
 }
+
