@@ -28,7 +28,7 @@ public class Nota {
     @Column(nullable = false)
     private Boolean estado;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private Usuario usuario;
 
