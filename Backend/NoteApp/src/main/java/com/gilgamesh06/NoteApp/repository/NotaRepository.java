@@ -15,9 +15,9 @@ public interface NotaRepository extends JpaRepository<Nota,Long> {
     Optional<Nota> findByUsuarioAndId(Usuario usuario, Long id);
 
     Optional<Nota> findByUsuarioAndTitulo(Usuario usuario, String titulo);
+
     Page<Nota> findByUsuario(Usuario usuario, Pageable pageable);
 
     Page<Nota> findByUsuarioAndEstado(Usuario usuario, boolean estado, Pageable pageable);
 
-    void deleteByUsuarioAndId(Usuario usuario, Long id);
 }
