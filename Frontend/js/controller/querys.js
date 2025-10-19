@@ -37,6 +37,43 @@ export async function sendNote(token ,body, URL){
     return await res.json();
 }
 
+
+export async function deleteNote(token, URL){
+    const res = await fetch(`${URL}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
+        }
+    });
+    if (!res.ok){
+        if (res.status === 401) {
+        return false;
+        }
+     throw new Error(`HTTP: ${res.status}`);
+    }
+
+    return await res.json();
+}
+
+export async function changeStatusNote(token, URL){
+    const res = await fetch(`${URL}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
+        }
+    });
+    if (!res.ok){
+        if (res.status === 401) {
+        return false;
+        }
+     throw new Error(`HTTP: ${res.status}`);
+    }
+
+    return await res.json();
+}
+
 export async function sendAuth(body, URL){
     const res = await fetch( `${URL}`, {
         method: 'POST',
