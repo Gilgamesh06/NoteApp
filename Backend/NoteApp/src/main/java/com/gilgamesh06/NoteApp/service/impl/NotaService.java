@@ -234,7 +234,7 @@ public class NotaService {
         nota.setEstado(estado);
         notaRepository.save(nota);
         // Determina el valor del estatus de noteDTO
-        String status = estado ? "La nota esta Activa" : "La nota esta Inactiva";
+        String status = estado ? "Activa" : "Inactiva";
         return new StatusNoteDTO(nota.getTitulo(),status);
 
     }
