@@ -72,14 +72,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Si el nombre no es nulo y el usuario no esta autenticado es decir es nulo
         if (nickname != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-
             // Obtiene el objeto UserDetails
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(nickname);
 
             // valida el token pasa los parametros {jwt el token, userDetails objeto que contiene el nickname y password del usaurio}
             if (jwtService.isTokenValid(jwt, userDetails)) {
-                // Crea un objeto de tipo UsernamePassworAuthenticationToken que representa la session autenticada
-
+                // Crea un objeto de tipo UsernamePassworAuthenticationToken que representa la session autenticad
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,
