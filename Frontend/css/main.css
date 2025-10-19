@@ -1,3 +1,4 @@
+
 /* ==============================
    🎨 RESET & VARIABLES GLOBALES
 ================================= */
@@ -58,15 +59,31 @@ body {
   font-weight: bold;
 }
 
+
+/* ✅ NUEVA ÁREA DE OPCIONES */
 #options {
   grid-area: options;
-  background-color: var(--bg-color);
-  /* ✅ Línea divisoria eliminada */
-  padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--bg-color);
+  padding: 1rem;
+  gap: 1.5rem; /* Espacio entre #barOption y #listNote */
+}
+
+/* ✅ CRUD OPTIONS dentro del área */
+#crudOptions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ✅ LIST OPTIONS dentro del área */
+#listOptions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -102,7 +119,7 @@ body {
       "footer";
   }
 
-  #options {
+  #listOptions {
     border-right: none;
     border-bottom: 2px solid #ddd;
   }
@@ -250,12 +267,12 @@ form input[type="submit"]:hover {
 ================================= */
 
 /* Ocultar completamente si no hay contenido */
-#options:empty {
+#listOptions:empty {
   display: none;
 }
 
-/* Cuando #options está vacío, el grid se ajusta automáticamente */
-body:has(#options:empty) {
+/* Cuando listOptions está vacío, el grid se ajusta automáticamente */
+body:has(#listOptions:empty) {
   grid-template-columns: 1fr; /* Container ocupa todo el ancho */
   grid-template-areas:
     "header"
@@ -302,15 +319,90 @@ body:has(#options:empty) {
 
 /* Hover */
 #listNote li:hover {
+  background-color: var(--accent-color);
+  color: var(--white);
+}
+
+
+/* ==============================
+   ⚙️ BAR OPTION (IGUAL TEMA QUE LIST NOTE)
+================================= */
+
+#barOption {
+  background-color: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 600px;
+  margin: 1.5rem auto 0 auto; /* 👈 un poco más arriba para que quede sobre listNote */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* 👈 asegura que esté sobre listNote si se superponen */
+  position: relative;
+}
+
+#barOption ul {
+  list-style: none;
+  display: flex;
+  flex-direction: row; /* Mismo estilo horizontal */
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+#barOption li {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius);
+  transition: var(--transition);
+  user-select: none;
+  white-space: nowrap;
+}
+
+#barOption li:hover {
   background-color: var(--secondary-color);
   color: var(--white);
 }
 
-/* Estado seleccionado */
-#listNote li.selected {
-  background-color: var(--accent-color);
-  color: var(--white);
+/* 🎨 Hover con color coherente a la acción */
+#barOption li#update:hover {
+  background-color: #3498db; /* Azul */
+  transform: translateY(-2px);
 }
+
+#barOption li#change:hover {
+  background-color: #f39c12; /* Amarillo/Naranja */
+  transform: translateY(-2px);
+}
+
+#barOption li#delete:hover {
+  background-color: #e74c3c; /* Rojo */
+  transform: translateY(-2px);
+}
+
+/* Responsive igual que listNote */
+@media (max-width: 768px) {
+  #barOption {
+    margin: 1rem auto 0 auto;
+  }
+
+  #barOption ul {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 1rem;
+    padding: 1rem 0;
+  }
+
+  #barOption li {
+    font-size: 0.95rem;
+  }
+}
+
 
 /* ==============================
    🖥️ PANTALLAS GRANDES
@@ -475,6 +567,125 @@ body:has(#options:empty) {
   transform: scale(1.05);
 }
 
+
+/* ==============================
+   📝 UPDATE NOTE FORM (MISMO TEMA QUE CREATE NOTE, SIN CHECKBOX)
+================================= */
+
+#updateNote {
+  background-color: var(--primary-color);
+  color: var(--white);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  padding: 2rem;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#updateNote input[type="text"],
+#updateNote textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+#updateNote textarea {
+  resize: none;
+  height: 120px;
+}
+
+#updateNote input[type="submit"] {
+  background-color: var(--white);
+  color: var(--text-color);
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.8rem 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+#updateNote input[type="submit"]:hover {
+  background-color: var(--accent-color);
+  color: var(--white);
+}
+
+/* ==============================
+   🧩 INFO DIV (PARA ESTADOS O ALERTAS)
+================================= */
+
+.info {
+  background: linear-gradient(135deg, #e8f6ff, #f0faff);
+  border-left: 5px solid var(--primary-color);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
+  padding: 1rem 1.5rem;
+  width: 100%;
+  max-width: 600px;
+  transition: var(--transition);
+  animation: fadeIn 0.5s ease-out;
+  position: relative;
+}
+
+/* Efecto al pasar el mouse */
+.info:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
+}
+
+/* Encabezado del mensaje */
+.info h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Texto descriptivo */
+.info p {
+  color: var(--text-color);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Bordes y colores dinámicos según el tipo de info */
+.info.success {
+  border-left-color: #2ecc71;
+  background: linear-gradient(135deg, #e8fff3, #f4fff8);
+}
+
+.info.warning {
+  border-left-color: #f39c12;
+  background: linear-gradient(135deg, #fff9e6, #fffdf3);
+}
+
+.info.error {
+  border-left-color: #e74c3c;
+  background: linear-gradient(135deg, #ffeaea, #fff5f5);
+}
+
+/* Animación de aparición */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 /* ==============================
    🧾 NOTE DIV (CORREGIDO)
 ================================= */
@@ -545,5 +756,79 @@ body:has(#options:empty) {
     width: 30px;
     height: 30px;
     font-size: 18px;
+  }  
+}
+
+@media (max-width: 768px) {
+  #options {
+    gap: 1rem;
+    padding: 0.5rem;
   }
+}
+
+@media (min-width: 769px) {
+  #updateNote {
+    width: 520px;
+    padding: 2.5rem;
+  }
+
+  #updateNote input[type="text"],
+  #updateNote textarea {
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+
+  #updateNote input[type="submit"] {
+    font-size: 1rem;
+    padding: 1rem 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #updateNote {
+    width: 90%;
+  }
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#header, #footer {
+  width: 100%;
+  margin: 0;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: var(--white);
+  box-shadow: var(--shadow);
+  text-align: center;
+  font-weight: bold;
+}
+
+
+/* ✅ FORZAR QUE HEADER Y FOOTER OCUPEN TODO EL ANCHO DEL VIEWPORT */
+#header,
+#footer {
+  grid-column: 1 / -1; /* Se extiende desde la primera hasta la última columna del grid */
+  width: 100vw;        /* Fuerza a ocupar todo el ancho visible */
+  margin: 0;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+#header {
+  background-color: var(--primary-color);
+  color: var(--white);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+
+#footer {
+  background-color: var(--primary-color);
+  color: var(--white);
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 100;
 }
