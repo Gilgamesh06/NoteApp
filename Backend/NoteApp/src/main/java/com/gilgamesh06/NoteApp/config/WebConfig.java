@@ -17,7 +17,8 @@ public class WebConfig {
                         .allowedOrigins("http://localhost:8080") // Frontend Nginx
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowCredentials(false); // Puedes dejarlo false mientras tanto
+
             }
         };
     }
