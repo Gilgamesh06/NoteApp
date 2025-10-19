@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-
 /**
  * Clase que implementa la interfaz UserDetailsService (que posee el metodo loadUserByUsername)
  * @see UserDetailsService mirar la interfaz
@@ -40,9 +38,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         Usuario usuario = usuarioRepository.findByNickname(nickname)
                 .orElseThrow(()-> new UsernameNotFoundException("Usuario no encontrado: "+ nickname));
 
-        return User.withUsername(usuario.getNickname())
-                    .password(usuario.getPassword())
-                    .build();
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(usuario.getNickname())
+                .password(usuario.getPassword())
+                .roles("USER") // muy importante, añade ROLE_USER
+                .build();
 
     }
 
