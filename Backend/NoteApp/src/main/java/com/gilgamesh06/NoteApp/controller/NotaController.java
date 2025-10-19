@@ -1,8 +1,6 @@
 package com.gilgamesh06.NoteApp.controller;
 
-import com.gilgamesh06.NoteApp.model.dto.note.CreateNoteDTO;
-import com.gilgamesh06.NoteApp.model.dto.note.InfoNoteDTO;
-import com.gilgamesh06.NoteApp.model.dto.note.UpdateNoteDTO;
+import com.gilgamesh06.NoteApp.model.dto.note.*;
 import com.gilgamesh06.NoteApp.service.impl.NotaService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -56,21 +54,21 @@ public class NotaController {
      * @param id Identificador unico de cada nota
      * @return String que informa que estado tiene la nota ahora
      */
-    @PostMapping("/status-changed/{id}")
-    public ResponseEntity<String> statusChangedNote(@PathVariable Long id){
-        String message = notaService.updateStatus(id);
-        return new ResponseEntity<>(message,HttpStatus.OK);
+    @PostMapping("/change-status/{id}")
+    public ResponseEntity<StatusNoteDTO> statusChangedNote(@PathVariable Long id){
+        StatusNoteDTO note = notaService.updateStatus(id);
+        return new ResponseEntity<>(note,HttpStatus.OK);
     }
 
     /**
      * Endpoint: {"/delete/{id}"} elimina una nota a partir del Id
      * @param id Identificador unico de cada nota
-     * @return String : Se elimino la nota + Id
+     * @return DeleteNote : Se elimino la nota + Id
      */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteNote(@PathVariable Long id){
-        notaService.delete(id);
-        return new ResponseEntity<>("Se elimino la nota: "+ id,HttpStatus.OK);
+    public ResponseEntity<DeleteNoteDTO> deleteNote(@PathVariable Long id){
+        DeleteNoteDTO note  = notaService.delete(id);
+        return new ResponseEntity<>(note,HttpStatus.OK);
     }
 
 
