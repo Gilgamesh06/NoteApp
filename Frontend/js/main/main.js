@@ -3,11 +3,12 @@ import { URL_BAR, URL_REGISTER, URL_HOME } from "../data/const.js";
 import { userRegister } from "../service/auth/register/register.js";
 import { cargarLoginAndEventSend } from "../service/auth/login/login.js";
 
-export function containderDiv(){
+export function containerDiv(){
     return {
         header: document.getElementById('header'),
         container: document.getElementById('container'),
-        options: document.getElementById('options')
+        options: document.getElementById('listOptions'),
+        crud: document.getElementById('crudOptions')
     }
 }
 
@@ -57,11 +58,48 @@ export async function cargarHTML(container, id, URL, drop = true) {
     }
 }
 
+export async function cargarHTMLConValue(container, id, URL, dataValueForm) {
+    const parser = new DOMParser();
+    try {
+        const html = await getHTML(URL);
+        const doc = parser.parseFromString(html, 'text/html');
+        const insertElement = doc.getElementById(id);
+
+        if (insertElement) {
+            container.innerHTML = "";
+            container.appendChild(insertElement);
+
+            const title = container.querySelector(`#${dataValueForm.title[0]}`);
+            const description = container.querySelector(`#${dataValueForm.descripcion[0]}`);
+
+            if (title) {
+                title.value = dataValueForm.title[1];
+            } else {
+                console.error(`Elemento con id: ${dataValueForm.title[0]} no encontrado.`);
+            }
+
+            if (description) {
+                description.value = dataValueForm.descripcion[1];
+            } else {
+                console.error(`Elemento con id: ${dataValueForm.descripcion[0]} no encontrado.`);
+            }
+
+        } else {
+            console.error(`Elemento con id: ${id} no encontrado en: ${URL}`);
+        }
+    } catch (err) {
+        console.log('Hubo un problema con la petición Fetch:', err);
+    }
+}
+
 async function load() {
     
-    const { header, container} = containderDiv();
+    const { header, container, crud} = containerDiv();
     const { bar } = barMenus();
     const { tituloHome, funcionalidades } = homeData();
+
+    // Limpiar el contenedor de crud
+    crud.innerHTML = "";
 
     // Carga el menu de opciones principal
     await cargarHTML(header, bar, URL_BAR);
