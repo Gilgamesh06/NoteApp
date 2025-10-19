@@ -1,14 +1,22 @@
 import { InfoNoteDTO } from "../../dto/infoNoteDTO.js";
 import { CreateNoteDTO } from "../../dto/createNoteDTO.js";
-import { sendNote } from "../../controller/querys.js";
+import { changeStatusNote, deleteNote, sendNote } from "../../controller/querys.js";
 import { getElements } from "../../controller/querys.js";
 import { getToken, isTokenValid } from "../../valid/token/token.js";
-import { URL_NOTES, URL_BARNOTE, URL_OPTIONS, URL_CREATENOTE, URL_BUTTONS } from "../../data/const.js";
-import { cargarHTML, containderDiv } from "../../main/main.js";
+import { URL_NOTES, URL_BARNOTE, URL_OPTIONS, URL_CREATENOTE, URL_BUTTONS, URL_BAROPTIONS, URL_UPDATENOTE } from "../../data/const.js";
+import { cargarHTML, cargarHTMLConValue, containerDiv } from "../../main/main.js";
 import { tokenNotValidLoadLoginFrom, unLogin } from "../auth/login/login.js";
 
 let currentPage = 0; // Página inicial
 let totalPages = 0;  // Se actualizará con la respuesta del backend
+
+function barOptionsNoteData(){
+    return {
+        updateLi: document.getElementById('update'),
+        changeLi: document.getElementById('change'),
+        deleteLi: document.getElementById('delete')
+    }
+}
 
 function handleClickNoteList(container, type, page) {
   return () => getNotes(container,type, page);
@@ -34,6 +42,10 @@ function handleClickCreateNote(container, createNote, URL_CREATENOTE) {
   return () => createNewNote(container, createNote, URL_CREATENOTE);
 }
 
+function handleClickUpdateNote(id, container, dataValueForm,URL_UPDATENOTE) {
+  return () => LoadFormUpdateNote(id, container, dataValueForm, URL_UPDATENOTE);
+}
+
 
 function converNote(note){
     return new InfoNoteDTO(
@@ -48,20 +60,20 @@ function createNoteDiv(note){
     const noteDiv = document.createElement('div');
     
     // Asigna el id al div
-    noteDiv.id = `note-${note.id}`; 
+    noteDiv.id = `${note.id}`; 
 
     // Asinga la clase "note"
     noteDiv.classList.add("note");
         
     // Creo el elemento h3
     const titleHThree = document.createElement('h3');
-        
+    titleHThree.id = 'title';        
     // Le asigno el titulo
     titleHThree.textContent = note.titulo;
-        
+   
     // Creo el elemento p
     const descriptionP = document.createElement('p');
-        
+    descriptionP.id = 'description'    
     // Le asigno la descripcion
     descriptionP.textContent = note.descripcion;
     
@@ -94,9 +106,182 @@ function fragmentNotes(noteList){
     return frag;
 }
 
+function changeStatus(data){
+    // Creo un elmento div
+    const noteDiv = document.createElement('div');
+    // Asigna el id al div
+    noteDiv.id = `noteStatus-${data.id}`;
+    const titleP = document.createElement('p');
+    titleP.textContent = data.title;
+    titleP.id = "title"
+    const statusP = document.createElement('p');
+    statusP.id = "status"
+    statusP.textContent = data.status;
+    noteDiv.appendChild(titleP);
+    noteDiv.appendChild(statusP);
+    return noteDiv;
+}
+
+// Obtener y remover la barra de opciones
+function cleanBarOptions(){
+    const barOptions = document.getElementById('barOption');
+    barOptions.remove();
+}
+
+// Funcion que captura los datos del Formulario de actualizar nota y los convierte en un objeto
+function getUpdateNote(id){
+
+    // Capture los valores ingresado por el usuario
+    const title = document.getElementById('title').value;
+    const descripcion = document.getElementById('description').value;
+
+    const note = {
+        id: id,
+        titulo: title,
+        descripcion: ""
+    }
+    // Valida si ingresaron descripcion
+    if(descripcion.trim() !== ""){
+        note.descripcion = descripcion;
+    }
+    return note;
+}
+
+async function sendFormUpdateNote(event, id){
+// Previene que el formulario se envie de forma tradicional
+    event.preventDefault();
+
+    if(!isTokenValid()){
+        // Si el token no es valido ingresa aqui
+        alert("No estas autenticado, Por favor inicia sesion");
+        try{
+            // cargar el menu de inicio y el formulario y su respectivo evento de envio
+            await tokenNotValidLoadLoginFrom();
+
+        }catch(error){
+            console.error("Error al cargar el formulario de Login:", error);
+        }  
+    }else{
+        // Crea un Objeto CreateNoteDTO apartir de los datos del formulario de createNote
+        const note = getUpdateNote(id);
+
+        const token = getToken();
+        // Funcion para enviar datos al backend
+        const data = await sendNote(token, note, `${URL_NOTES}/update`);
+        if( data === false){
+            // Si el token no es valido ingresa aqui
+            try{
+                // cargar el menu de inicio y el formulario y su respectivo evento de envio
+                await tokenNotValidLoadLoginFrom();
+
+            }catch(error){
+           
+            }
+        }else{
+            try{
+                const { container } = containerDiv();
+                // Limpiar el contenedor antes de agregar nuevas notas
+                container.innerHTML = "";
+                // recive la nota creada
+                const infoNote = converNote(data);
+                // la convierte a div
+                
+                const noteDiv = createNoteDiv(infoNote);
+                // La agrega al contenedor
+                container.appendChild(noteDiv);
+
+            }catch(error){
+                console.log("Error al actualizar Nota:", error);
+            }
+        }
+    }
+}
+
+// Funcion que cargar el formulario para actualizar una nota y crea un evento para enviar el formulario
+async function LoadFormUpdateNote(id, container, dataValueForm, URL_UPDATENOTE){
+    try{
+        await cargarHTMLConValue(container, 'updateNote', URL_UPDATENOTE, dataValueForm);
+
+        // Esperar a que el formulariuo se inyecte para añadir el evento
+        const formUpdateNote = document.getElementById('updateNote');
+                    
+        if(formUpdateNote){
+            // Evento para enviar formulario para crear una nueva nota
+            formUpdateNote.addEventListener('submit' , async (event) => sendFormUpdateNote(event,id));
+        }else{
+            console.error("El formulario no se encotrno despues de cargar");
+        }
+    }catch(error){
+        console.error("Error al cargar el formulario:", error);
+    }
+}
+
+async function actualizarEstadoNota(note){
+    const token = getToken();
+    // Elimina el menu
+    cleanBarOptions();
+    // Envia la solicitud al enpoint y obtiene el retorno
+    const data = await changeStatusNote(token,`${URL_NOTES}/change-status/${note.id}`);
+                            
+    if(data === false){
+        // Si el token no es valido ingresa aqui
+        try{
+            // cargar el menu de inicio y el formulario y su respectivo evento de envio
+            await tokenNotValidLoadLoginFrom();
+
+        }catch(error){
+            console.error("Error al cargar el formulario de Login:", error);
+        }
+    }else{
+        const { container } = containerDiv();
+        container.innerHTML = "";
+        const noteDiv = changeStatus(data);
+        container.appendChild(noteDiv);                            
+    }
+}
+
+
+async function eliminarNota(note){
+    const token = getToken();
+    // Elimina el menu
+    cleanBarOptions();
+    // Envia la solicitud al enpoint y obtiene el retorno
+    const data = await deleteNote(token,`${URL_NOTES}/delete/${note.id}`);
+                            
+    if(data === false){
+        // Si el token no es valido ingresa aqui
+        try{
+            // cargar el menu de inicio y el formulario y su respectivo evento de envio
+            await tokenNotValidLoadLoginFrom();
+
+        }catch(error){
+            console.error("Error al cargar el formulario de Login:", error);
+        }
+    }else{
+        const { container } = containerDiv();
+        container.innerHTML = "";
+        
+        const infoDiv = document.createElement('div');
+        infoDiv.id = "NotaDeleteDiv";
+
+        const h3 = document.createElement('h3');
+        h3.id = "NotaEliminada";
+        h3.textContent = "Eliminada Exitosamente";
+        
+        const infoP = document.createElement('p');
+        infoP.id = "info" ;
+        infoP.textContent = `Nota: ${data.title}`;
+        
+        infoDiv.appendChild(h3); 
+        infoDiv.appendChild(infoP);
+        container.appendChild(infoDiv);                            
+    }
+}
+
+
 // Funcion que obtiene la lista de notas y las convierte en objetos DOM
 async function getNotes(container,routeBase, page = 0) {
-    
+    const { crud } = containerDiv();
     // Obtener token desde localStorage
     const token = getToken();
     // El token es valido ?
@@ -129,9 +314,11 @@ async function getNotes(container,routeBase, page = 0) {
                 totalPages = data.totalPages;  // Guardamos total de páginas
                 currentPage = data.number;     // Página actual que viene del backend
 
+                // Limpiar crud options si se da click
+                crud.innerHTML = "";
                 // Limpiar el contenedor antes de agregar nuevas notas
                 container.innerHTML = "";
-
+                
                 // Convertir cada nota del backend a un objeto NoteDTO
                 const noteList = convertNotes(data);
 
@@ -140,13 +327,45 @@ async function getNotes(container,routeBase, page = 0) {
                 container.appendChild(frag);
                 // Carga los botones de paginado
                 await cargarBotonesPrevAndNext(routeBase);
-        
+                const notes = document.querySelectorAll('.note');
+                for ( const note of notes){
+                    note.addEventListener( 'click', async () => {
+                        // Limpia el contenedor 
+                        container.innerHTML="";
+                        // Carga la nota selecionada
+                        container.appendChild(note);
+                        // Carga el menu de opciones (update,change,delete)
+                        await cargarHTML(crud, 'barOption', URL_BAROPTIONS);
+                        const { updateLi, changeLi, deleteLi } = barOptionsNoteData();
+                        
+                        const titleElement = document.getElementById('title');
+                        const descriptionElement = document.getElementById('description');
+                        
+                        if(updateLi){
+                            const dataValueForm = {
+                            title: ['title', titleElement ? titleElement.textContent.trim() : ''],
+                            descripcion: ['description', descriptionElement ? descriptionElement.textContent.trim() : '']
+                            };
+                            updateLi.addEventListener('click', handleClickUpdateNote(note.id, container, dataValueForm, URL_UPDATENOTE));
+                        }
+                        if(changeLi){
+                            changeLi.addEventListener('click', async () => actualizarEstadoNota(note));
+                        }
+                        if(deleteLi){
+                            deleteLi.addEventListener('click', async () => eliminarNota(note));
+                        }else{
+                            console.error('Error al cargar el menu de opciones de nota');
+                        }
+
+                    })
+                } 
             }catch(error){
             console.log("Error al otener notes: ", error);
             }
         }
     }
 }
+
 
 // Funcion que captura los datos del Formulario de crear nota y los convierte en un objeto CreateNoteDTO
 function createNote(){
@@ -165,7 +384,7 @@ function createNote(){
 }
 
 // Funcion que envia los datos de crear una nota al Backend
-async function sendFromNote(event) {
+async function sendFormNote(event) {
     // Previene que el formulario se envie de forma tradicional
     event.preventDefault();
 
@@ -216,8 +435,9 @@ async function sendFromNote(event) {
 
 // Funcion que cargar el formulario para crear una nota y crea un evento para enviar el formulario
 async function createNewNote(container, createNote, URL_CREATENOTE){
-    const { options } = containderDiv();
     try{
+        const { crud } = containerDiv()
+        crud.innerHTML = "";
         await cargarHTML(container, createNote, URL_CREATENOTE);
                     
         // Esperar a que el formulariuo se inyecte para añadir el evento
@@ -225,7 +445,7 @@ async function createNewNote(container, createNote, URL_CREATENOTE){
                     
         if(fromNote){
             // Evento para enviar formulario para crear una nueva nota
-            fromNote.addEventListener('submit' , sendFromNote);
+            fromNote.addEventListener('submit' , sendFormNote);
         }else{
             console.error("El formulario no se encotrno despues de cargar");
         }
@@ -245,7 +465,7 @@ function datosList(){
 export async function cargarInterfazInterna(header,container) {
     
     // contenedor de mi lista de opciones
-    const { options } = containderDiv();
+    const { options } = containerDiv();
 
     await cargarHTML(options,`listNote`, URL_OPTIONS);
     // Espera a que el formulario se inyecte para añadir el evento
@@ -258,7 +478,6 @@ export async function cargarInterfazInterna(header,container) {
 
     
     if (activeLi && archiveLi) {
-        
         activeLi.addEventListener('click', handleClickNoteList(container, noteRoutes.active));
         archiveLi.addEventListener('click', handleClickNoteList(container, noteRoutes.archive));
         
