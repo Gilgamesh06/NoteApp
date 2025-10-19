@@ -1,9 +1,7 @@
 package com.gilgamesh06.NoteApp.service.impl;
 
 import com.gilgamesh06.NoteApp.exception.NotaNotFoundException;
-import com.gilgamesh06.NoteApp.model.dto.note.CreateNoteDTO;
-import com.gilgamesh06.NoteApp.model.dto.note.InfoNoteDTO;
-import com.gilgamesh06.NoteApp.model.dto.note.UpdateNoteDTO;
+import com.gilgamesh06.NoteApp.model.dto.note.*;
 import com.gilgamesh06.NoteApp.model.entity.Nota;
 import com.gilgamesh06.NoteApp.model.entity.Usuario;
 import com.gilgamesh06.NoteApp.repository.NotaRepository;
@@ -223,14 +221,21 @@ public class NotaService {
      * @param id identifacador de la nota
      * @return String
      */
-    public String updateStatus(Long id){
+    public StatusNoteDTO updateStatus(Long id){
         Optional<Nota> notaOpt = notaRepository.findById(id);
         if(notaOpt.isEmpty()){
             throw new NotaNotFoundException("Nota no encontrada");
         }
+        // guarda el estado contrario al actual
         boolean estado = !notaOpt.get().getEstado();
-        notaOpt.get().setEstado(estado);
-        return estado ? "La nota esta Activa" : "La nota esta Archivada";
+        // Obtiene la nota dentro del Optional
+        Nota nota = notaOpt.get();
+        // Guarda el nuevo estado
+        nota.setEstado(estado);
+        notaRepository.save(nota);
+        // Determina el valor del estatus de noteDTO
+        String status = estado ? "La nota esta Activa" : "La nota esta Inactiva";
+        return new StatusNoteDTO(nota.getTitulo(),status);
 
     }
 
@@ -240,7 +245,8 @@ public class NotaService {
      * Metodo para eliminar una nota
      * @param id identificador de la nota
      */
-    public void delete(Long id){
+    @Transactional
+    public DeleteNoteDTO delete(Long id){
 
         // validar id
         validId(id);
@@ -248,7 +254,12 @@ public class NotaService {
         // Se pasa el usuario para evitar que se elimine notas que no son del Usuario
         Usuario usuario = getUserAuthenticated();
 
-        notaRepository.deleteByUsuarioAndId(usuario,id);
+        Optional<Nota> notaOpt = notaRepository.findByUsuarioAndId(usuario,id);
+        if(notaOpt.isEmpty()){
+            throw new NotaNotFoundException("Nota con id: "+id + ", No encontrada");
+        }
+        notaRepository.delete(notaOpt.get());
+        return new DeleteNoteDTO(notaOpt.get().getTitulo());
     }
 
     // Metodos de busqueda
