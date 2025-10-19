@@ -3,13 +3,13 @@ import { sendAuth } from "../../../controller/querys.js";
 import { URL_AUTH , URL_LOGIN, URL_BAR} from "../../../data/const.js";
 import { saveToken , isTokenValid} from "../../../valid/token/token.js";
 import { cargarInterfazInterna } from "../../note/note.js";
-import { cargarHTML,containderDiv, barMenus, startPage } from "../../../main/main.js";
+import { cargarHTML,containerDiv, barMenus, startPage } from "../../../main/main.js";
 
 
 // Funcion que me envia los datos del Login From
 async function userLogin(event){
 
-    const { header, container } = containderDiv();
+    const { header, container } = containerDiv();
     
     // Previene que el formulario se envie de forma tradicional
     event.preventDefault(); 
@@ -45,7 +45,7 @@ async function userLogin(event){
 // Funcion que carga el Formulario de Login y su evento de envio
 export async function cargarLoginAndEventSend(){
 
-    const { container } = containderDiv();
+    const { container } = containerDiv();
 
     await cargarHTML(container,`loginFrom`, URL_LOGIN);
     // Espera a que el formulario se inyecte para añadir el envento
@@ -64,7 +64,7 @@ export async function cargarLoginAndEventSend(){
 // Funcion que limpia los contenedores y carga el Formulario de Login y Menu Inicial
 export async function tokenNotValidLoadLoginFrom(){
     // Carga los div que se van a modificar 
-    const { options , header } = containderDiv();
+    const { options , header } = containerDiv();
     // borra la lista de opciones de notas
     options.innerHTML = "";
     // contiene el id de la barra de menu de inicio
@@ -81,7 +81,7 @@ export async function unLogin() {
         // Eliminar token
         localStorage.removeItem('authToken');
         // Limpie el contenedor de Options y Cambie el Header y Container
-        const {options} = containderDiv();
+        const {options} = containerDiv();
         // Limpiamos las opciones
         options.innerHTML = "";
 
