@@ -108,18 +108,22 @@ function fragmentNotes(noteList){
 
 function changeStatus(data){
     // Creo un elmento div
-    const noteDiv = document.createElement('div');
+    const infoDiv = document.createElement('div');
     // Asigna el id al div
-    noteDiv.id = `noteStatus-${data.id}`;
-    const titleP = document.createElement('p');
-    titleP.textContent = data.title;
-    titleP.id = "title"
-    const statusP = document.createElement('p');
-    statusP.id = "status"
-    statusP.textContent = data.status;
-    noteDiv.appendChild(titleP);
-    noteDiv.appendChild(statusP);
-    return noteDiv;
+    infoDiv.id = `noteStatus-${data.id}`;
+
+    // Asinga la clase "note"
+    infoDiv.classList.add("info");
+
+    const titleResponseH = document.createElement('h3');
+    titleResponseH.textContent =`Nota: ${data.title}`;
+    titleResponseH.id = "title"
+    const infoP = document.createElement('p');
+    infoP.id = "status"
+    infoP.textContent = data.status;
+    infoDiv.appendChild(titleResponseH);
+    infoDiv.appendChild(infoP);
+    return infoDiv;
 }
 
 // Obtener y remover la barra de opciones
@@ -235,11 +239,27 @@ async function actualizarEstadoNota(note){
     }else{
         const { container } = containerDiv();
         container.innerHTML = "";
-        const noteDiv = changeStatus(data);
-        container.appendChild(noteDiv);                            
+        const infoDiv = changeStatus(data);
+        container.appendChild(infoDiv);                            
     }
 }
 
+function createInfoDeleteDiv(data){
+        const infoDiv = document.createElement('div');
+        infoDiv.id = "NotaDeleteDiv";
+        // Asinga la clase "note"
+        infoDiv.classList.add("info");
+        const titleResponseH = document.createElement('h3');
+        titleResponseH.id = "NotaEliminada";
+        titleResponseH.textContent = `Nota: ${data.title}`;
+        const infoP = document.createElement('p');
+        infoP.id = "request" ;
+        infoP.textContent = "Eliminada Exitosamente";
+        
+        infoDiv.appendChild(titleResponseH); 
+        infoDiv.appendChild(infoP);
+        return infoDiv;
+}
 
 async function eliminarNota(note){
     const token = getToken();
@@ -261,23 +281,10 @@ async function eliminarNota(note){
         const { container } = containerDiv();
         container.innerHTML = "";
         
-        const infoDiv = document.createElement('div');
-        infoDiv.id = "NotaDeleteDiv";
-
-        const h3 = document.createElement('h3');
-        h3.id = "NotaEliminada";
-        h3.textContent = "Eliminada Exitosamente";
-        
-        const infoP = document.createElement('p');
-        infoP.id = "info" ;
-        infoP.textContent = `Nota: ${data.title}`;
-        
-        infoDiv.appendChild(h3); 
-        infoDiv.appendChild(infoP);
+        const infoDiv = createInfoDeleteDiv(data);
         container.appendChild(infoDiv);                            
     }
 }
-
 
 // Funcion que obtiene la lista de notas y las convierte en objetos DOM
 async function getNotes(container,routeBase, page = 0) {
