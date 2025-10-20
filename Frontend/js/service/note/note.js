@@ -172,7 +172,7 @@ async function sendFormUpdateNote(event, id){
         const token = getToken();
         // Funcion para enviar datos al backend
         const data = await sendNote(token, note, `${URL_NOTES}/update`);
-        if( data === false){
+        if( data === 401){
             // Si el token no es valido ingresa aqui
             try{
                 // cargar el menu de inicio y el formulario y su respectivo evento de envio
@@ -181,6 +181,13 @@ async function sendFormUpdateNote(event, id){
             }catch(error){
            
             }
+        }else if(data === 400){
+            // Limpiar el contenedor antes de agregar nuevas notas
+            container.innerHTML = "";
+            // recive la nota creada
+            const infoDiv = errorNoteIsExist(note, "Ya Existe Nota Con Ese Titulo, No Se puede Actualizar.");
+            // La agrega al contenedor
+            container.appendChild(infoDiv);
         }else{
             try{
                 const { container } = containerDiv();
@@ -255,6 +262,23 @@ function createInfoDeleteDiv(data){
         const infoP = document.createElement('p');
         infoP.id = "request" ;
         infoP.textContent = "Eliminada Exitosamente";
+        
+        infoDiv.appendChild(titleResponseH); 
+        infoDiv.appendChild(infoP);
+        return infoDiv;
+}
+
+function errorNoteIsExist(note,message){
+        const infoDiv = document.createElement('div');
+        infoDiv.id = "NotaIsExistDiv";
+        // Asinga la clase "note"
+        infoDiv.classList.add("info");
+        const titleResponseH = document.createElement('h3');
+        titleResponseH.id = "notaExistente";
+        titleResponseH.textContent = `Nota: ${note.titulo}`;
+        const infoP = document.createElement('p');
+        infoP.id = "request" ;
+        infoP.textContent = message;
         
         infoDiv.appendChild(titleResponseH); 
         infoDiv.appendChild(infoP);
@@ -412,15 +436,22 @@ async function sendFormNote(event) {
         const token = getToken();
         // Funcion para enviar datos al backend
         const data = await sendNote(token, note, `${URL_NOTES}/create`);
-        if( data === false){
+        if( data === 401){
             // Si el token no es valido ingresa aqui
             try{
                 // cargar el menu de inicio y el formulario y su respectivo evento de envio
                 await tokenNotValidLoadLoginFrom();
 
             }catch(error){
-           
+                
             }
+        }else if (data === 400){
+            // Limpiar el contenedor antes de agregar nuevas notas
+            container.innerHTML = "";
+            // recive la nota creada
+            const infoDiv = errorNoteIsExist(note, "Nota A Crear Ya Existe");
+            // La agrega al contenedor
+            container.appendChild(infoDiv);
         }else{
             try{
                 // Limpiar el contenedor antes de agregar nuevas notas
