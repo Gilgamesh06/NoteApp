@@ -29,7 +29,10 @@ export async function sendNote(token ,body, URL){
     });
     if (!res.ok){
         if (res.status === 401) {
-        return false;
+            return res.status;
+        }
+        if(res.status === 400){
+            return res.status
         }
      throw new Error(`HTTP: ${res.status}`);
     }
