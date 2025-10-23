@@ -5,10 +5,10 @@
 ## Historias de Usuario
 
 * **US-01:** Como Usuario quiero poder registrarme en la plataforma.
-* **US-02:** Como Usuario quiero poder logearme en la plataforma.
+* **US-02:** Como Usuario quiero poder iniciar sesion en la plataforma.
 * **US-03:** Como Usuario quiero poder cerrar Sesion en la plataforma.
 * **US-04:** Como usuario quiero poder listar mis notas activas y archivadas.
-* **US-05:** Como usuario quiero poder crear nuevas nuevas notas.
+* **US-05:** Como usuario quiero poder crear nuevas notas.
 * **US-06:** Como usuario quiero poder eliminar notas
 * **US-07:** Como usuario quiero poder archivar o desarchivar una nota.
 * **US-08:** Como usuario quiero poder actualizar notas.
@@ -37,7 +37,7 @@
   * **Descripción:** Permite a un usuario iniciar sesión en la plataforma.
   * **Precondiciones:** El usuario debe estar registrado.
   * **Flujo Principal:**
-    * El usuario accede a la página de inicio de sesión.
+    * El usuario da clic en Login.
     * El usuario ingresa su nickname y contraseña.
     * El usuario envía las credenciales.
     * El sistema valida las credenciales y carga la interfaz de gestion de Notas.
