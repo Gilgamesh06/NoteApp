@@ -1,0 +1,1412 @@
+{
+  "info": {
+    "name": "NoteApp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Nota",
+      "item": [
+        {
+          "name": "Create",
+          "item": [
+            {
+              "name": "Nota 1",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false,
+                    "type": "default"
+                  }
+                ],
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDIyNDUwNiwiZXhwIjoxNzYwMjI4MTA2fQ.eSHcruw-vnzg4U_ND5PmIEDlGFL0qdc9vsz9518m-Bs",
+                    "type": "string"
+                  }
+                },
+                "description": "",
+                "url": {
+                  "raw": "http://localhost:8081/note_app/v1/note/create",
+                  "protocol": "http",
+                  "host": [
+                    "localhost:8081"
+                  ],
+                  "path": [
+                    "note_app",
+                    "v1",
+                    "note",
+                    "create"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"titulo\":\"Estudiar Ingles\",\n  \"descripcion\":\"Estudiar el presenta simple, pasado simple, verbos irregulares, como explicar mi rutina and feelings\",\n  \"estado\":true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Nota 2",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false,
+                    "type": "default"
+                  }
+                ],
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDIyNDUwNiwiZXhwIjoxNzYwMjI4MTA2fQ.eSHcruw-vnzg4U_ND5PmIEDlGFL0qdc9vsz9518m-Bs",
+                    "type": "string"
+                  }
+                },
+                "description": "",
+                "url": {
+                  "raw": "http://localhost:8081/note_app/v1/note/create",
+                  "protocol": "http",
+                  "host": [
+                    "localhost:8081"
+                  ],
+                  "path": [
+                    "note_app",
+                    "v1",
+                    "note",
+                    "create"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"titulo\": \"Aprender Programación\",\n  \"descripcion\": \"Introducción a Python, estructuras de control, funciones y manejo de errores.\",\n  \"estado\": false\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Nota 3",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false,
+                    "type": "default"
+                  }
+                ],
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDIyNDUwNiwiZXhwIjoxNzYwMjI4MTA2fQ.eSHcruw-vnzg4U_ND5PmIEDlGFL0qdc9vsz9518m-Bs",
+                    "type": "string"
+                  }
+                },
+                "description": "",
+                "url": {
+                  "raw": "http://localhost:8081/note_app/v1/note/create",
+                  "protocol": "http",
+                  "host": [
+                    "localhost:8081"
+                  ],
+                  "path": [
+                    "note_app",
+                    "v1",
+                    "note",
+                    "create"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"titulo\": \"Ejercicio Regular\",\n  \"descripcion\": \"Crear un plan de entrenamiento semanal, incluir cardio y fuerza.\",\n  \"estado\": true\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Nota 4",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false,
+                    "type": "default"
+                  }
+                ],
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDIyNDUwNiwiZXhwIjoxNzYwMjI4MTA2fQ.eSHcruw-vnzg4U_ND5PmIEDlGFL0qdc9vsz9518m-Bs",
+                    "type": "string"
+                  }
+                },
+                "description": "",
+                "url": {
+                  "raw": "http://localhost:8081/note_app/v1/note/create",
+                  "protocol": "http",
+                  "host": [
+                    "localhost:8081"
+                  ],
+                  "path": [
+                    "note_app",
+                    "v1",
+                    "note",
+                    "create"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"titulo\": \"Cocinar Nuevas Recetas\",\n  \"descripcion\": \"Probar recetas de cocina italiana, incluyendo pasta y salsas.\",\n  \"estado\": false\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Nota 5",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false,
+                    "type": "default"
+                  }
+                ],
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDIyNDUwNiwiZXhwIjoxNzYwMjI4MTA2fQ.eSHcruw-vnzg4U_ND5PmIEDlGFL0qdc9vsz9518m-Bs",
+                    "type": "string"
+                  }
+                },
+                "description": "",
+                "url": {
+                  "raw": "http://localhost:8081/note_app/v1/note/create",
+                  "protocol": "http",
+                  "host": [
+                    "localhost:8081"
+                  ],
+                  "path": [
+                    "note_app",
+                    "v1",
+                    "note",
+                    "create"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"titulo\": \"Leer Libros de Ciencia Ficción\",\n  \"descripcion\": \"Explorar obras de autores como Isaac Asimov y Philip K. Dick.\",\n  \"estado\": true\n}\n\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Nota 6",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false,
+                    "type": "default"
+                  }
+                ],
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDkwMTc1NSwiZXhwIjoxNzYwOTA1MzU1fQ.irmq8dpOsdglPQC6C5OXuLYcJ9DjSRJwmSYnBH6vWTg",
+                    "type": "string"
+                  }
+                },
+                "description": "",
+                "url": {
+                  "raw": "http://localhost:8081/note_app/v1/note/create",
+                  "protocol": "http",
+                  "host": [
+                    "localhost:8081"
+                  ],
+                  "path": [
+                    "note_app",
+                    "v1",
+                    "note",
+                    "create"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"titulo\": \"Viajar a Japón\",\n  \"descripcion\": \"Investigar sobre la cultura, lugares turísticos y gastronomía japonesa.\",\n  \"estado\": true\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Nota 7",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false,
+                    "type": "default"
+                  }
+                ],
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDIyNDUwNiwiZXhwIjoxNzYwMjI4MTA2fQ.eSHcruw-vnzg4U_ND5PmIEDlGFL0qdc9vsz9518m-Bs",
+                    "type": "string"
+                  }
+                },
+                "description": "",
+                "url": {
+                  "raw": "http://localhost:8081/note_app/v1/note/create",
+                  "protocol": "http",
+                  "host": [
+                    "localhost:8081"
+                  ],
+                  "path": [
+                    "note_app",
+                    "v1",
+                    "note",
+                    "create"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"titulo\": \"Practicar Meditación\",\n  \"descripcion\": \"Incorporar la meditación diaria para mejorar la concentración y reducir el estrés.\",\n  \"estado\": false\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "name": "Nota 8",
+              "event": [],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false,
+                    "type": "default"
+                  }
+                ],
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDgzNjQ3NywiZXhwIjoxNzYwODQwMDc3fQ.iRNeRaKyN0jgWom6RjtIfMmiQ9K4JPRZd_rEQGP6His",
+                    "type": "string"
+                  }
+                },
+                "description": "",
+                "url": {
+                  "raw": "http://localhost:8081/note_app/v1/note/create",
+                  "protocol": "http",
+                  "host": [
+                    "localhost:8081"
+                  ],
+                  "path": [
+                    "note_app",
+                    "v1",
+                    "note",
+                    "create"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"titulo\": \"Aprender Fotografía\",\n  \"descripcion\": \"Estudiar técnicas de composición, iluminación y edición de fotos.\",\n  \"estado\": true\n}\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete",
+          "item": [
+            {
+              "name": "Delete Note ID: 8",
+              "event": [],
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "disabled": false,
+                    "type": "default"
+                  }
+                ],
+                "auth": {
+                  "type": "bearer",
+                  "bearer": {
+                    "key": "token",
+                    "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDgzNjQ3NywiZXhwIjoxNzYwODQwMDc3fQ.iRNeRaKyN0jgWom6RjtIfMmiQ9K4JPRZd_rEQGP6His",
+                    "type": "string"
+                  }
+                },
+                "description": "",
+                "url": {
+                  "raw": "http://localhost:8081/note_app/v1/note/delete/8",
+                  "protocol": "http",
+                  "host": [
+                    "localhost:8081"
+                  ],
+                  "path": [
+                    "note_app",
+                    "v1",
+                    "note",
+                    "delete",
+                    "8"
+                  ],
+                  "query": [],
+                  "variable": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get",
+          "item": [
+            {
+              "name": "Active Notes",
+              "item": [
+                {
+                  "name": "Notas Activas",
+                  "event": [],
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "key": "token",
+                        "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDgzNTU3MiwiZXhwIjoxNzYwODM5MTcyfQ.kRAiS3QDsNCtGJTzZx-wtMExiTsfEVyhyy-pEHBoo_o",
+                        "type": "string"
+                      }
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/note_app/v1/note/all/active?page=0&size=3&orderBy=true",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "note_app",
+                        "v1",
+                        "note",
+                        "all",
+                        "active"
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "size",
+                          "value": "3"
+                        },
+                        {
+                          "key": "orderBy",
+                          "value": "true"
+                        }
+                      ],
+                      "variable": []
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "All Notes",
+              "item": [
+                {
+                  "name": "Exception",
+                  "item": [
+                    {
+                      "name": "Exception Page  negative and Size cero",
+                      "event": [],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc1NzY5MTA1MywiZXhwIjoxNzU3Njk0NjUzfQ.8FnfnmsPv5KuZNdAVH4riIAj4jn0gctgZt0yJSi_SnA",
+                            "type": "string"
+                          }
+                        },
+                        "description": "",
+                        "url": {
+                          "raw": "http://localhost:8081/note_app/v1/note/all?page=-1&size=0&orderBy=false",
+                          "protocol": "http",
+                          "host": [
+                            "localhost:8081"
+                          ],
+                          "path": [
+                            "note_app",
+                            "v1",
+                            "note",
+                            "all"
+                          ],
+                          "query": [
+                            {
+                              "key": "page",
+                              "value": "-1"
+                            },
+                            {
+                              "key": "size",
+                              "value": "0"
+                            },
+                            {
+                              "key": "orderBy",
+                              "value": "false"
+                            }
+                          ],
+                          "variable": []
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "OK",
+                  "item": [
+                    {
+                      "name": "Order ascending",
+                      "event": [],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc2MDgzNDYxNCwiZXhwIjoxNzYwODM4MjE0fQ.LMRwpcLQUwkWI0nQTZhU86LsP7PJEx65hjoq8wZt1pI",
+                            "type": "string"
+                          }
+                        },
+                        "description": "",
+                        "url": {
+                          "raw": "http://localhost:8081/note_app/v1/note/all?page=0&size=3&orderBy=true",
+                          "protocol": "http",
+                          "host": [
+                            "localhost:8081"
+                          ],
+                          "path": [
+                            "note_app",
+                            "v1",
+                            "note",
+                            "all"
+                          ],
+                          "query": [
+                            {
+                              "key": "page",
+                              "value": "0"
+                            },
+                            {
+                              "key": "size",
+                              "value": "3"
+                            },
+                            {
+                              "key": "orderBy",
+                              "value": "true"
+                            }
+                          ],
+                          "variable": []
+                        }
+                      }
+                    },
+                    {
+                      "name": "Order descending",
+                      "event": [],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc1NzY4NTgzNywiZXhwIjoxNzU3Njg5NDM3fQ.Vp9oPyTaYpdqHHsn7INJBFncmdfvpXuu_F0bg2Npv2k",
+                            "type": "string"
+                          }
+                        },
+                        "description": "",
+                        "url": {
+                          "raw": "http://localhost:8081/note_app/v1/note/all?page=1&size=3&orderBy=false",
+                          "protocol": "http",
+                          "host": [
+                            "localhost:8081"
+                          ],
+                          "path": [
+                            "note_app",
+                            "v1",
+                            "note",
+                            "all"
+                          ],
+                          "query": [
+                            {
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "key": "size",
+                              "value": "3"
+                            },
+                            {
+                              "key": "orderBy",
+                              "value": "false"
+                            }
+                          ],
+                          "variable": []
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "By Status",
+              "item": [
+                {
+                  "name": "Note status active",
+                  "event": [],
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "key": "token",
+                        "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc1NzY4NjYxOSwiZXhwIjoxNzU3NjkwMjE5fQ.OB8MxNp05U1DW_jYnVIe4_UFCNVcuSujotnOpiH3wtE",
+                        "type": "string"
+                      }
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/note_app/v1/note/all/true?page=0&size=3&orderBy=true",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "note_app",
+                        "v1",
+                        "note",
+                        "all",
+                        "true"
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "size",
+                          "value": "3"
+                        },
+                        {
+                          "key": "orderBy",
+                          "value": "true"
+                        }
+                      ],
+                      "variable": []
+                    }
+                  }
+                },
+                {
+                  "name": "Note status inactive",
+                  "event": [],
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": {
+                        "key": "token",
+                        "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc1NzY4NjYxOSwiZXhwIjoxNzU3NjkwMjE5fQ.OB8MxNp05U1DW_jYnVIe4_UFCNVcuSujotnOpiH3wtE",
+                        "type": "string"
+                      }
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/note_app/v1/note/all/false?page=0&size=3&orderBy=true",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "note_app",
+                        "v1",
+                        "note",
+                        "all",
+                        "false"
+                      ],
+                      "query": [
+                        {
+                          "key": "page",
+                          "value": "0"
+                        },
+                        {
+                          "key": "size",
+                          "value": "3"
+                        },
+                        {
+                          "key": "orderBy",
+                          "value": "true"
+                        }
+                      ],
+                      "variable": []
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "Id",
+              "item": [
+                {
+                  "name": "Exception",
+                  "item": [
+                    {
+                      "name": "Nota Id Not Found",
+                      "event": [],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc1NzY4ODYyMywiZXhwIjoxNzU3NjkyMjIzfQ.3og-WJgENUku9tlf8hMRXXM-ft_qJRmO8bppkUhdmKo",
+                            "type": "string"
+                          }
+                        },
+                        "description": "",
+                        "url": {
+                          "raw": "http://localhost:8081/note_app/v1/note/12",
+                          "protocol": "http",
+                          "host": [
+                            "localhost:8081"
+                          ],
+                          "path": [
+                            "note_app",
+                            "v1",
+                            "note",
+                            "12"
+                          ],
+                          "query": [],
+                          "variable": []
+                        }
+                      }
+                    },
+                    {
+                      "name": "Nota Not Pass Id",
+                      "event": [],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc1NzY4NTgzNywiZXhwIjoxNzU3Njg5NDM3fQ.Vp9oPyTaYpdqHHsn7INJBFncmdfvpXuu_F0bg2Npv2k",
+                            "type": "string"
+                          }
+                        },
+                        "description": "",
+                        "url": {
+                          "raw": "http://localhost:8081/note_app/v1/note/",
+                          "protocol": "http",
+                          "host": [
+                            "localhost:8081"
+                          ],
+                          "path": [
+                            "note_app",
+                            "v1",
+                            "note",
+                            ""
+                          ],
+                          "query": [],
+                          "variable": []
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "OK",
+                  "item": [
+                    {
+                      "name": "Nota 1",
+                      "event": [],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc1NzY4ODgxOSwiZXhwIjoxNzU3NjkyNDE5fQ.nkDyT17Z4JUeF6wnqYlyPOH9nFDKd2xMxHkIZSBkS54",
+                            "type": "string"
+                          }
+                        },
+                        "description": "",
+                        "url": {
+                          "raw": "http://localhost:8081/note_app/v1/note/1",
+                          "protocol": "http",
+                          "host": [
+                            "localhost:8081"
+                          ],
+                          "path": [
+                            "note_app",
+                            "v1",
+                            "note",
+                            "1"
+                          ],
+                          "query": [],
+                          "variable": []
+                        }
+                      }
+                    },
+                    {
+                      "name": "Nota 3",
+                      "event": [],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc1NzY4NTgzNywiZXhwIjoxNzU3Njg5NDM3fQ.Vp9oPyTaYpdqHHsn7INJBFncmdfvpXuu_F0bg2Npv2k",
+                            "type": "string"
+                          }
+                        },
+                        "description": "",
+                        "url": {
+                          "raw": "http://localhost:8081/note_app/v1/note/3",
+                          "protocol": "http",
+                          "host": [
+                            "localhost:8081"
+                          ],
+                          "path": [
+                            "note_app",
+                            "v1",
+                            "note",
+                            "3"
+                          ],
+                          "query": [],
+                          "variable": []
+                        }
+                      }
+                    },
+                    {
+                      "name": "Nota 6",
+                      "event": [],
+                      "request": {
+                        "method": "GET",
+                        "header": [],
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": {
+                            "key": "token",
+                            "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucCIsImlhdCI6MTc1NzY4NTgzNywiZXhwIjoxNzU3Njg5NDM3fQ.Vp9oPyTaYpdqHHsn7INJBFncmdfvpXuu_F0bg2Npv2k",
+                            "type": "string"
+                          }
+                        },
+                        "description": "",
+                        "url": {
+                          "raw": "http://localhost:8081/note_app/v1/note/6",
+                          "protocol": "http",
+                          "host": [
+                            "localhost:8081"
+                          ],
+                          "path": [
+                            "note_app",
+                            "v1",
+                            "note",
+                            "6"
+                          ],
+                          "query": [],
+                          "variable": []
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "item": [
+            {
+              "name": "Exception",
+              "item": [
+                {
+                  "name": "Nickname incorrect Usuario 2",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nickname\": \"car\",\n    \"password\": \"miContraseñaSegura789\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "Password Incorrect Usuario 1",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nickname\":\"juanp\",\n  \"password\":\"Segura123\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "OK",
+              "item": [
+                {
+                  "name": "Login Usuario 2",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nickname\": \"carlitos\",\n    \"password\": \"miContraseñaSegura789\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "Login Usuario 1",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"nickname\":\"juanp\",\n  \"password\":\"contraseñaSegura123\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "Login Usuario 3",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nickname\": \"anita\",\n    \"password\": \"contraseñaFuerte321\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Register",
+          "item": [
+            {
+              "name": "Excepcion",
+              "item": [
+                {
+                  "name": "Nombre Blank",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/register",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nombre\": \"\",\n    \"apellido\":\"Perez\",\n    \"nickname\": \"juanp\",\n    \"password\": \"contraseñaSegura123\",\n    \"fechaNacimiento\": \"1990-01-01\",\n    \"correoElectronico\": \"juan@example.com\"\n}\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "Password Lenght incorrect",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/register",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nombre\": \"mia\",\n    \"apellido\":\"Perez\",\n    \"nickname\": \"mia.lg\",\n    \"password\": \"a123\",\n    \"fechaNacimiento\": \"1990-01-01\",\n    \"correoElectronico\": \"juan@example.com\"\n}\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "nickname null",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/register",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nombre\": \"sara\",\n    \"apellido\":\"Perez\",\n    \"password\": \"a123\",\n    \"fechaNacimiento\": \"1990-01-01\",\n    \"correoElectronico\": \"juan@example.com\"\n}\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "name": "OK",
+              "item": [
+                {
+                  "name": "Usuario 3",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/register",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nombre\": \"Ana\",\n    \"apellido\": \"Lopez\",\n    \"nickname\": \"anita\",\n    \"password\": \"contraseñaFuerte321\",\n    \"fechaNacimiento\": \"1995-11-30\",\n    \"correoElectronico\": \"ana.lopez@example.com\"\n}\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "Usuario 2",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/register",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nombre\": \"Carlos\",\n    \"apellido\": \"Gomez\",\n    \"nickname\": \"carlitos\",\n    \"password\": \"miContraseñaSegura789\",\n    \"fechaNacimiento\": \"1985-03-22\",\n    \"correoElectronico\": \"carlos.gomez@example.com\"\n}\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "name": "Usuario 1",
+                  "event": [],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "disabled": false,
+                        "type": "default"
+                      }
+                    ],
+                    "auth": {
+                      "type": "noauth"
+                    },
+                    "description": "",
+                    "url": {
+                      "raw": "http://localhost:8081/auth/register",
+                      "protocol": "http",
+                      "host": [
+                        "localhost:8081"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ],
+                      "query": [],
+                      "variable": []
+                    },
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n    \"nombre\": \"Juan\",\n    \"apellido\":\"Perez\",\n    \"nickname\": \"juanp\",\n    \"password\": \"contraseñaSegura123\",\n    \"fechaNacimiento\": \"1990-01-01\",\n    \"correoElectronico\": \"juan@example.com\"\n}\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": []
+}
