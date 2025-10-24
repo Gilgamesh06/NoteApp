@@ -1,4 +1,4 @@
-![Logo](/Images/logo/noteapp.png)
+![Logo](/Images/Logo/noteapp.png)
 
 ---
 
@@ -116,5 +116,3 @@
 ## Diagrama de Arquitectura
 
 ![Arquitectura](/Diagramas/Arquitectura/Arquitectura.png)
-
-## Diagrama de Actividades
