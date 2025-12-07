@@ -1,6 +1,6 @@
 # Stage 1: Builder
 
-FROM openjdk:21-jdk AS build
+FROM eclipse-temurin:21-jdk AS build
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ RUN ./mvnw clean package -DskipTests
 
 # Stage 2: Runtime
 
-FROM openjdk:21-jdk
+FROM eclipse-temurin:21-jdk
 
 COPY --from=build  /app/target/*.jar ./app.jar
 
