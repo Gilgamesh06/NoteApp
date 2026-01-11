@@ -1,6 +1,6 @@
 // URLS Backend
-export const URL_AUTH = "http://localhost:8081/auth";
-export const URL_NOTES = "http://localhost:8081/note_app/v1/note";
+export const URL_AUTH = window.__ENV__.URL_AUTH;
+export const URL_NOTES = window.__ENV__.URL_NOTES;
 
 // URLS HTML (todas relativas a index.html)
 export const URL_BAR = '/html/componets/home/bar.html';
